@@ -1,0 +1,62 @@
+.root {
+  position: absolute;
+  z-index: 1;
+  pointer-events: auto;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.outerEllipse,
+.outerCone,
+.rotatingLines line,
+.planeLines line,
+.rings ellipse {
+  vector-effect: non-scaling-stroke;
+}
+
+.planeLines {
+  pointer-events: none;
+}
+
+.planeLines line {
+  stroke: var(--lv-white);
+  stroke-width: 1;
+  opacity: 0.1;
+}
+
+.outerEllipse,
+.outerCone {
+  stroke: var(--lv-white);
+  stroke-width: 1;
+  opacity: 0.5;
+}
+
+.rotatingLines line {
+  stroke: var(--lv-white);
+  stroke-width: 1;
+}
+
+.rings ellipse {
+  stroke: var(--lv-mint);
+  stroke-width: 1;
+}
+
+.rings circle {
+  fill: var(--lv-mint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotatingLines,
+  .rings {
+    will-change: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .planeLines { display: none; }
+}

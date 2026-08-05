@@ -1,0 +1,125 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/landing-tokens.css";
+
+/**
+ * Tailwind v4 @theme — tokens.css의 CSS 변수를 유틸리티 클래스(bg-background, text-danger 등)로
+ * 등록만 한다. 값 자체는 tokens.css(:root/.dark)에 있다 — 여기서 재정의하지 않는다(단일 소스 유지).
+ */
+@theme inline {
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-sidebar: var(--color-sidebar);
+  --color-card: var(--color-card);
+  --color-card-foreground: var(--color-card-foreground);
+  --color-muted: var(--color-muted);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-border: var(--color-border);
+  --color-border-hover: var(--color-border-hover);
+  --color-surface-hover: var(--color-surface-hover);
+  --color-input: var(--color-input);
+  --color-ring: var(--color-ring);
+
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-foreground: var(--color-secondary-foreground);
+  --color-accent: var(--color-accent);
+  --color-accent-foreground: var(--color-accent-foreground);
+  --color-destructive: var(--color-destructive);
+  --color-destructive-foreground: var(--color-destructive-foreground);
+
+  --color-status-neutral: var(--color-status-neutral);
+  --color-status-neutral-bg: var(--color-status-neutral-bg);
+  --color-status-info: var(--color-status-info);
+  --color-status-info-bg: var(--color-status-info-bg);
+  --color-status-success: var(--color-status-success);
+  --color-status-success-bg: var(--color-status-success-bg);
+  --color-status-warning: var(--color-status-warning);
+  --color-status-warning-bg: var(--color-status-warning-bg);
+  --color-status-danger: var(--color-status-danger);
+  --color-status-danger-bg: var(--color-status-danger-bg);
+
+  --color-buffer-safe: var(--color-buffer-safe);
+  --color-buffer-warn: var(--color-buffer-warn);
+  --color-buffer-danger: var(--color-buffer-danger);
+  --color-buffer-critical: var(--color-buffer-critical);
+  --color-buffer-track: var(--color-buffer-track);
+  --color-tick-up: var(--color-tick-up);
+  --color-tick-down: var(--color-tick-down);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-full: var(--radius-full);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --text-xs: var(--text-xs);
+  --text-sm: var(--text-sm);
+  --text-base: var(--text-base);
+  --text-lg: var(--text-lg);
+  --text-xl: var(--text-xl);
+  --text-2xl: var(--text-2xl);
+  --text-3xl: var(--text-3xl);
+  --text-4xl: var(--text-4xl);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+
+  --spacing-1: var(--space-1);
+  --spacing-2: var(--space-2);
+  --spacing-3: var(--space-3);
+  --spacing-4: var(--space-4);
+  --spacing-5: var(--space-5);
+  --spacing-6: var(--space-6);
+  --spacing-8: var(--space-8);
+  --spacing-10: var(--space-10);
+  --spacing-12: var(--space-12);
+  --spacing-16: var(--space-16);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+}
+
+/* ---- 실시간 틱 플래시 (거래 UI 표준: 값 변경 시 짧은 배경 하이라이트, 레이아웃 불변) ---- */
+@keyframes tick-flash-up {
+  0% { background-color: color-mix(in srgb, var(--color-tick-up) 25%, transparent); }
+  100% { background-color: transparent; }
+}
+@keyframes tick-flash-down {
+  0% { background-color: color-mix(in srgb, var(--color-tick-down) 25%, transparent); }
+  100% { background-color: transparent; }
+}
+.tick-flash-up { animation: tick-flash-up var(--motion-flash-ms) ease-out; }
+.tick-flash-down { animation: tick-flash-down var(--motion-flash-ms) ease-out; }
+
+/* ---- 95% critical 단계 — 색 전환만으로 부족한 최후 경고, 은은한 pulse ---- */
+@keyframes buffer-critical-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+.buffer-critical-pulse { animation: buffer-critical-pulse 1.2s ease-in-out infinite; }
+
+/* ---- 피드 연결 상태 인디케이터 ---- */
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.live-pulse { animation: live-pulse 1.6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tick-flash-up, .tick-flash-down, .buffer-critical-pulse, .live-pulse { animation: none; }
+}

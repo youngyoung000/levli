@@ -1,0 +1,333 @@
+.shell {
+  min-height: 100vh;
+  color: var(--lv-text-on-dark);
+  background: var(--lv-night);
+  font-family: var(--lv-font-body);
+}
+
+.skipLink {
+  position: fixed;
+  z-index: 100;
+  top: 10px;
+  left: 10px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  color: var(--color-primary-foreground);
+  background: var(--color-primary);
+  font-size: 12px;
+  font-weight: 650;
+  transform: translateY(-160%);
+}
+
+.skipLink:focus {
+  transform: translateY(0);
+}
+
+.header {
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  right: 0;
+  left: 0;
+  border-bottom: 1px solid var(--lv-line-dark);
+  background: rgb(11 13 18 / 0.8);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+.headerInner {
+  position: relative;
+  width: min(1440px, 100%);
+  height: 74px;
+  margin: 0 auto;
+}
+
+.logoLink {
+  position: absolute;
+  top: 20px;
+  left: 28px;
+  width: 138px;
+  height: 33px;
+  color: var(--lv-white);
+}
+
+.logoLink svg,
+.footerBrand svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.desktopNav {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  color: var(--lv-muted-dark);
+  font: 500 14px/18px var(--lv-font-meta);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+}
+
+.desktopNav a,
+.loginLink,
+.linkGroup a {
+  transition: color 150ms ease-out;
+}
+
+.desktopNav a:hover,
+.loginLink:hover,
+.linkGroup a:hover {
+  color: var(--lv-white);
+}
+
+.headerActions {
+  position: absolute;
+  top: 18px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  font: 600 14px/18px var(--lv-font-body);
+}
+
+.loginLink {
+  min-width: 42px;
+  min-height: 24px;
+  padding: 0;
+  border: 0;
+  color: var(--lv-muted-dark);
+  background: transparent;
+  font: inherit;
+}
+
+.startLink {
+  width: 142px;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 0 18px;
+  border: 1px solid var(--lv-mint);
+  border-radius: 999px;
+  color: var(--lv-action-ink);
+  background: var(--lv-mint);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 650;
+  white-space: nowrap;
+  transition: transform 150ms ease-out, background-color 150ms ease-out;
+}
+
+.startLink:hover {
+  background: var(--lv-mint-deep);
+  border-color: var(--lv-mint-deep);
+}
+
+.startLink svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+}
+
+.logoLink:focus-visible,
+.desktopNav a:focus-visible,
+.headerActions a:focus-visible,
+.mobileMenu a:focus-visible,
+.linkGroup a:focus-visible,
+.mobileMenu summary:focus-visible {
+  outline: 2px solid var(--lv-mint);
+  outline-offset: 4px;
+}
+
+.mobileMenu {
+  display: none;
+}
+
+.footer {
+  position: relative;
+  width: min(1440px, 100%);
+  height: 260px;
+  margin: 0 auto;
+  padding: 0;
+  border-top: 1px solid var(--lv-line-dark);
+  color: var(--lv-text-on-dark);
+  background: var(--lv-night);
+}
+
+.footerTop {
+  position: relative;
+  height: 200px;
+}
+
+.footerBrand {
+  position: absolute;
+  top: 50px;
+  left: 28px;
+  width: 140px;
+  height: 34px;
+}
+
+.footerBrand p {
+  max-width: 300px;
+  margin: 20px 0 0;
+  color: var(--color-muted-foreground);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.linkGroup {
+  position: absolute;
+  top: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--lv-muted-dark);
+  font: 500 10px/12px var(--lv-font-meta);
+  letter-spacing: 0.2px;
+}
+
+.linkGroup:nth-child(2) { left: 650px; }
+.linkGroup:nth-child(3) { left: 920px; }
+.linkGroup:nth-child(4) { left: 1180px; }
+
+.linkGroup > span {
+  margin-bottom: 4px;
+  color: var(--lv-white);
+  font: 600 10px/1 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.disclosure {
+  position: absolute;
+  top: 218px;
+  left: 28px;
+  color: var(--lv-steel);
+  font: 500 10px/12px var(--lv-font-meta);
+  letter-spacing: 0.2px;
+}
+
+.disclosure p {
+  max-width: 800px;
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .headerInner {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+  }
+
+  .logoLink { position: static; width: 104px; height: 25px; }
+
+  .desktopNav,
+  .headerActions {
+    display: none;
+  }
+
+  .mobileMenu {
+    position: relative;
+    display: block;
+  }
+
+  .mobileMenu summary {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-content: center;
+    gap: 6px;
+    border: 1px solid var(--lv-line-dark);
+    border-radius: 50%;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .mobileMenu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobileMenu summary span {
+    width: 16px;
+    height: 1px;
+    background: var(--lv-white);
+  }
+
+  .mobileMenu nav {
+    position: absolute;
+    top: 48px;
+    right: 0;
+    width: min(280px, calc(100vw - 36px));
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    border: 1px solid var(--lv-line-dark);
+    border-radius: 0;
+    background: var(--lv-night-soft);
+    box-shadow: var(--lv-shadow-float);
+  }
+
+  .mobileMenu nav a {
+    padding: 12px;
+    border-radius: 0;
+    color: var(--lv-muted-dark);
+    font-size: 13px;
+  }
+
+  .mobileMenu nav a:hover {
+    color: var(--lv-white);
+    background: rgb(255 255 255 / 0.06);
+  }
+
+  .footer {
+    height: auto;
+    min-height: 420px;
+    padding: 54px 20px 28px;
+  }
+
+  .footerTop {
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 42px 24px;
+  }
+
+  .footerBrand {
+    position: static;
+    grid-column: 1 / -1;
+    width: 124px;
+    height: auto;
+  }
+
+  .linkGroup,
+  .linkGroup:nth-child(2),
+  .linkGroup:nth-child(3),
+  .linkGroup:nth-child(4) { position: static; }
+
+  .disclosure {
+    position: static;
+    margin-top: 54px;
+    padding-top: 20px;
+    border-top: 1px solid var(--lv-line-dark);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktopNav a,
+  .loginLink,
+  .linkGroup a,
+  .startLink {
+    transition: none;
+  }
+
+  .startLink:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,42 @@
+.field {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.tile {
+  position: absolute;
+  display: grid;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  animation-name: tile-fade;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.tile b {
+  display: block;
+  background: transparent;
+}
+
+.tile .cellFilled { background: var(--lv-mint); }
+.tile:nth-child(4n) .cellFilled { background: var(--lv-white); }
+.tile .cellDiamond { transform: rotate(45deg) scale(0.707); }
+
+@keyframes tile-fade {
+  0%,
+  18% { opacity: 0; }
+  44%,
+  58% { opacity: 0.15; }
+  86%,
+  100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile {
+    animation: none;
+    opacity: 0.1;
+  }
+}

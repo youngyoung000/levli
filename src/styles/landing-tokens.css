@@ -1,0 +1,77 @@
+/**
+ * Levli public-site design system — Journey layer
+ * Product cockpit tokens remain in tokens.css. This scoped layer gives the
+ * marketing experience its own palette, editorial type scale, grid and motion.
+ */
+.levli-landing {
+  --lv-font-display: var(--font-host-grotesk), sans-serif;
+  --lv-font-body: var(--font-instrument-sans), sans-serif;
+  --lv-font-value: var(--font-roboto-mono), monospace;
+  --lv-font-meta: var(--font-jetbrains-mono), monospace;
+  /* Brand palette */
+  --lv-night: #0b0d12;
+  --lv-night-soft: #151822;
+  --lv-ink: #101217;
+  --lv-paper: #f2f1e9;
+  --lv-paper-bright: #fbfaf4;
+  --lv-white: #ffffff;
+  --lv-mint: #00edd5;
+  --lv-mint-deep: #00b8a7;
+  --lv-mint-soft: #a8f7e9;
+  --lv-mint-pale: #d7fbf5;
+  --lv-fog: #dfe4e1;
+  --lv-steel: #9aa2b2;
+
+  /* Semantic roles */
+  --lv-surface-primary: var(--lv-night);
+  --lv-surface-readable: var(--lv-paper);
+  --lv-text-on-dark: var(--lv-white);
+  --lv-text-on-light: var(--lv-ink);
+  --lv-action: var(--lv-mint);
+  --lv-action-ink: #001715;
+  --lv-line-dark: rgb(255 255 255 / 0.15);
+  --lv-line-light: rgb(16 18 23 / 0.2);
+  --lv-muted-dark: rgb(255 255 255 / 0.62);
+  --lv-muted-light: rgb(16 18 23 / 0.62);
+
+  /* Typography hierarchy */
+  --lv-type-display: 4.5rem;
+  --lv-type-section: 4rem;
+  --lv-type-subsection: 1.5rem;
+  --lv-type-lead: 1.125rem;
+  --lv-type-body: 0.9375rem;
+  --lv-type-meta: 0.625rem;
+  --lv-tracking-display: -0.04em;
+  --lv-tracking-heading: -0.035em;
+  --lv-leading-display: 0.98;
+  --lv-leading-body: 1.55;
+
+  /* Layout */
+  --lv-grid-max: 90rem;
+  --lv-content-max: 80rem;
+  --lv-gutter: clamp(1.25rem, 5.56vw, 5rem);
+  --lv-section-y: 6.25rem;
+  --lv-radius-panel: 1.25rem;
+  --lv-radius-control: 0.5rem;
+
+  /* Motion: interaction feedback, never account state */
+  --lv-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --lv-motion-fast: 180ms;
+  --lv-motion-slow: 700ms;
+  --lv-shadow-float: 0 28px 80px rgb(1 4 13 / 0.2);
+}
+
+@media (max-width: 760px) {
+  .levli-landing {
+    --lv-type-display: clamp(2.5rem, 12.3vw, 3rem);
+    --lv-type-section: clamp(2.5rem, 11.3vw, 2.75rem);
+    --lv-section-y: 6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .levli-landing {
+    --lv-motion-fast: 0ms;
+    --lv-motion-slow: 0ms;
+  }
+}

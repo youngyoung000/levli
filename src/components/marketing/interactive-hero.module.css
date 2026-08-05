@@ -1,0 +1,66 @@
+.stage {
+  position: absolute;
+  z-index: 0;
+  top: 74px;
+  right: 0;
+  left: 0;
+  height: 746px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.field {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 975px;
+  height: 746px;
+  transform: translateX(-50%);
+}
+
+.sourceSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ctaStage {
+  inset: 0;
+  width: auto;
+  height: 490px;
+  pointer-events: none;
+}
+
+.ctaStage .field {
+  top: 0;
+  width: 655px;
+  height: 490px;
+}
+
+@media (max-width: 760px) {
+  .stage {
+    top: 64px;
+    height: 656px;
+    mask-image: linear-gradient(180deg, transparent 0 43%, black 61% 100%);
+  }
+
+  .field {
+    top: 250px;
+    left: 66%;
+    width: 440px;
+    height: 337px;
+  }
+
+  .ctaStage {
+    top: 0;
+    height: 440px;
+    mask-image: none;
+  }
+
+  .ctaStage .field {
+    top: 0;
+    left: 50%;
+    width: 430px;
+    height: 322px;
+  }
+}

@@ -1,0 +1,205 @@
+/**
+ * 디자인 토큰 — 색상/spacing/radius/typography/shadow 단일 소스.
+ * 디자인 전면 교체 시 이 파일만 갈아끼우면 된다(컴포넌트는 CSS 변수만 참조, 하드코딩 금지).
+ *
+ * v3 (2026-07-10): WattVision DESIGN.md 번역 적용 — 뉴트럴 차콜 표면(#121212/#1E1E1E/#2C2C2E),
+ * 민트 데이터 액센트(#00EDD5, 2026-07-31 Home key-color override), iOS 계열 상태색(#32D74B/#FF453A), 16px 카드 라운드,
+ * KPI 모노스페이스. 다크 기본 + .light 클래스 opt-in(테마 토글, lib/theme.ts).
+ * 트레이딩 도메인 유지 사항: up/down·buffer 4단계 시맨틱 분리, tabular 숫자.
+ */
+
+:root {
+  /* ---- Palette (원색, 리브랜딩 시 이 블록만 교체) ---- */
+  /* Surface scale — 뉴트럴 차콜(WattVision: #121212 bg / #1E1E1E card / #2C2C2E border) */
+  --palette-neutral-950: #121212; /* page background */
+  --palette-neutral-900: #1e1e1e; /* card */
+  --palette-neutral-860: #232326; /* muted / input surface */
+  --palette-neutral-840: #252528; /* hover surface (WattVision row hover #252525) */
+  --palette-neutral-800: #2c2c2e; /* border */
+  --palette-neutral-700: #3a3a3c; /* border hover / input border */
+  --palette-neutral-500: #6e6e73;
+  --palette-neutral-400: #98989d; /* secondary text (WattVision) */
+  --palette-neutral-200: #d1d1d6;
+  --palette-neutral-0: #ffffff;
+
+  /* Light surface scale (opt-in) */
+  --palette-paper-0: #ffffff;
+  --palette-paper-50: #f5f5f7;
+  --palette-paper-100: #ececf0;
+  --palette-paper-200: #d9d9e0;
+  --palette-paper-600: #55555e;
+  --palette-paper-900: #1c1c1e;
+
+  /* Brand accent — Levli 민트 (데이터·KPI·액션, 사용자 지정 #00EDD5) */
+  --palette-cyan-300: #63f6e7;
+  --palette-cyan-400: #00edd5;
+  --palette-cyan-500: #00c9b6;
+  --palette-cyan-600: #008f83;
+
+  /* Market up/down — iOS 계열(WattVision #32D74B / #FF453A), 라이트는 대비 확보 변형 */
+  --palette-up-400: #32d74b;
+  --palette-up-600: #1f9d44;
+  --palette-down-400: #ff453a;
+  --palette-down-600: #d70015;
+
+  --palette-blue-400: #0a84ff;
+  --palette-blue-600: #0066cc;
+  --palette-amber-400: #ffd60a;
+  --palette-amber-600: #b45309;
+  --palette-crimson-500: #ff1744; /* buffer critical 전용(danger보다 깊은 크림슨) */
+  --palette-crimson-700: #b3122f;
+  --palette-gold-400: #e8c268;
+
+  /* ---- Semantic: surface/text (다크 기본) ---- */
+  --color-background: var(--palette-neutral-950);
+  --color-foreground: var(--palette-neutral-0);
+  /* 앱 셸 사이드바 — 콘텐츠 표면과 다른 2차 뉴트럴 레이어(product 레지스터 권고) */
+  --color-sidebar: #161618;
+  --color-card: var(--palette-neutral-900);
+  --color-card-foreground: var(--palette-neutral-0);
+  --color-muted: var(--palette-neutral-860);
+  --color-muted-foreground: var(--palette-neutral-400);
+  --color-border: var(--palette-neutral-800);
+  --color-border-hover: var(--palette-neutral-700);
+  --color-input: var(--palette-neutral-700);
+  --color-ring: var(--palette-cyan-400);
+  --color-surface-hover: var(--palette-neutral-840);
+
+  /* ---- Semantic: brand / action ---- */
+  --color-primary: var(--palette-cyan-400);
+  --color-primary-hover: var(--palette-cyan-300);
+  --color-primary-foreground: #001519;
+  --color-secondary: var(--palette-neutral-840);
+  --color-secondary-foreground: var(--palette-neutral-0);
+  --color-accent: var(--palette-cyan-400);
+  --color-accent-foreground: #001519;
+
+  /* ---- Semantic: market (PnL·tick·side — status와 분리, 트레이딩 전용) ---- */
+  --color-tick-up: var(--palette-up-400);
+  --color-tick-down: var(--palette-down-400);
+
+  /* ---- Semantic: status (account status / badge / alert 공용) ---- */
+  --color-status-neutral: var(--palette-neutral-400);
+  --color-status-neutral-bg: var(--palette-neutral-840);
+  --color-status-info: var(--palette-blue-400);
+  --color-status-info-bg: color-mix(in srgb, var(--palette-blue-400) 14%, var(--palette-neutral-900));
+  --color-status-success: var(--palette-up-400);
+  --color-status-success-bg: color-mix(in srgb, var(--palette-up-400) 12%, var(--palette-neutral-900));
+  --color-status-warning: var(--palette-amber-400);
+  --color-status-warning-bg: color-mix(in srgb, var(--palette-amber-400) 12%, var(--palette-neutral-900));
+  --color-status-danger: var(--palette-down-400);
+  /* WattVision 알림 배경(#3A1C1C 계열) — red를 card에 진하게 섞는다 */
+  --color-status-danger-bg: color-mix(in srgb, var(--palette-down-400) 16%, var(--palette-neutral-900));
+
+  /* ---- Semantic: risk buffer (DD/Daily buffer bar 4단계 — 08 §4-3 80/90 + UX리서치 95 critical) ---- */
+  --color-buffer-safe: var(--palette-up-400);
+  --color-buffer-warn: var(--palette-amber-400);
+  --color-buffer-danger: var(--palette-down-400);
+  --color-buffer-critical: var(--palette-crimson-500);
+  --color-buffer-track: var(--palette-neutral-840);
+
+  --color-destructive: var(--palette-down-400);
+  --color-destructive-foreground: #1c0503;
+
+  /* ---- Motion (상태 전이 전용, 장식 금지 — prop-design 규칙) ---- */
+  --motion-flash-ms: 220ms;
+  --motion-transition-ms: 180ms;
+
+  /* ---- Spacing scale (8px 배수 원칙 — WattVision §5) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* ---- Radius scale (카드 16px — WattVision §3) ---- */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-full: 9999px;
+
+  /* ---- Typography scale ---- */
+  /* --font-inter/--font-jetbrains-mono는 next/font(layout.tsx)가 주입 — 미로드 시 시스템 폴백.
+     KPI 숫자는 JetBrains Mono(모노스페이스) — WattVision §4. */
+  --font-sans:
+    var(--font-inter, ""), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono:
+    var(--font-jetbrains-mono, ""), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  /* ---- Shadow scale (다크: 깊이는 surface 계조가 주도, 그림자는 은은하게) ---- */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.35);
+  --shadow-md: 0 4px 10px -2px rgb(0 0 0 / 0.45);
+  --shadow-lg: 0 12px 24px -6px rgb(0 0 0 / 0.5);
+}
+
+/* ---- Light theme (opt-in: <html class="light"> — lib/theme.ts 토글) ---- */
+.light {
+  --color-background: var(--palette-paper-50);
+  --color-foreground: var(--palette-paper-900);
+  --color-sidebar: var(--palette-paper-0);
+  --color-card: var(--palette-paper-0);
+  --color-card-foreground: var(--palette-paper-900);
+  --color-muted: var(--palette-paper-100);
+  --color-muted-foreground: var(--palette-paper-600);
+  --color-border: var(--palette-paper-200);
+  --color-border-hover: #c4c4cd;
+  --color-input: var(--palette-paper-200);
+  --color-ring: var(--palette-cyan-600);
+  --color-surface-hover: var(--palette-paper-100);
+
+  --color-primary: var(--palette-cyan-600);
+  --color-primary-hover: var(--palette-cyan-500);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--palette-paper-100);
+  --color-secondary-foreground: var(--palette-paper-900);
+  --color-accent: var(--palette-cyan-600);
+  --color-accent-foreground: #ffffff;
+
+  --color-tick-up: var(--palette-up-600);
+  --color-tick-down: var(--palette-down-600);
+
+  --color-status-neutral: var(--palette-paper-600);
+  --color-status-neutral-bg: var(--palette-paper-100);
+  --color-status-info: var(--palette-blue-600);
+  --color-status-info-bg: color-mix(in srgb, var(--palette-blue-600) 8%, white);
+  --color-status-success: var(--palette-up-600);
+  --color-status-success-bg: color-mix(in srgb, var(--palette-up-600) 9%, white);
+  --color-status-warning: var(--palette-amber-600);
+  --color-status-warning-bg: color-mix(in srgb, var(--palette-amber-600) 10%, white);
+  --color-status-danger: var(--palette-down-600);
+  --color-status-danger-bg: color-mix(in srgb, var(--palette-down-600) 8%, white);
+
+  --color-buffer-safe: var(--palette-up-600);
+  --color-buffer-warn: var(--palette-amber-600);
+  --color-buffer-danger: var(--palette-down-600);
+  --color-buffer-critical: var(--palette-crimson-700);
+  --color-buffer-track: var(--palette-paper-100);
+
+  --color-destructive: var(--palette-down-600);
+  --color-destructive-foreground: #ffffff;
+
+  --shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.06);
+  --shadow-md: 0 4px 6px -1px rgb(15 23 42 / 0.08), 0 2px 4px -2px rgb(15 23 42 / 0.06);
+  --shadow-lg: 0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.06);
+}
+
+/* 구 .dark 클래스 하위호환 — 다크가 기본이 되면서 no-op */
+.dark {
+}
