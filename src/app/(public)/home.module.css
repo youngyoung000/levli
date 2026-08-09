@@ -161,6 +161,7 @@
 }
 
 .sectionIntro h2,
+.backersSection h2,
 .finalCta h2 {
   margin: 0;
   font: 500 64px/62.72px var(--lv-font-display);
@@ -675,6 +676,45 @@
   font: 400 15px/23.25px var(--lv-font-body);
 }
 
+/* Backed by — 디자인 실측(1440px): 섹션 650px, 헤딩 잉크 top 261, 로고 행 중심 372.5, 로고 간격 60 */
+.backersSection {
+  height: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 33px;
+  color: var(--lv-ink);
+  background: var(--lv-paper);
+  text-align: center;
+}
+
+.backerLogos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.backerLogos li {
+  display: flex;
+  align-items: center;
+}
+
+.backerLogos img {
+  display: block;
+  width: auto;
+}
+
+/* 로고별 높이는 시각적 무게를 맞춘 실측값 — 원본은 타이트 크롭이라 높이가 곧 잉크 높이 */
+.backerLogos li:nth-child(1) img { height: 46px; }
+/* Hyperliquid은 디자인에서 행 중심보다 3px 아래(x-height 기준 광학 정렬) */
+.backerLogos li:nth-child(2) img { height: 33px; transform: translateY(3px); }
+.backerLogos li:nth-child(3) img { height: 36px; }
+
 .finalCta {
   position: relative;
   height: 490px;
@@ -794,6 +834,7 @@
   .facts strong { top: 66px; font-size: 15px; line-height: 20px; }
 
   .sectionIntro h2,
+  .backersSection h2,
   .finalCta h2 { font-size: 44px; line-height: 44px; letter-spacing: -1.54px; }
   .pathSection { height: auto; padding: 72px 20px; }
   .pathSection .sectionIntro { position: static; }
@@ -855,12 +896,23 @@
   .faqRow summary > span { font-size: 18px; line-height: 24px; }
   .faqAnswer { padding-right: 36px; }
 
+  .backersSection { height: auto; padding: 78px 20px 84px; gap: 30px; }
+  .backerLogos { flex-wrap: wrap; gap: 26px 40px; }
+  .backerLogos li:nth-child(1) img { width: auto; height: 38px; }
+  .backerLogos li:nth-child(2) img { width: auto; height: 27px; }
+  .backerLogos li:nth-child(3) img { width: auto; height: 30px; }
+
   .finalCta { height: 440px; }
   .finalCtaGraphic { top: 38px; width: 430px; height: auto; aspect-ratio: 545 / 457; }
   .finalCta h2 { top: 154px; width: calc(100% - 40px); height: auto; }
   .finalActions { top: 242px; width: calc(100% - 40px); flex-direction: column; gap: 10px; }
   .finalCta .primaryButton,
   .finalCta .secondaryButton { width: 100%; }
+}
+
+/* 576px 미만은 3개가 한 줄에 못 들어가 2+1로 끊기므로 세로 스택 */
+@media (max-width: 575px) {
+  .backerLogos { flex-direction: column; gap: 26px; }
 }
 
 @media (max-width: 359px) {

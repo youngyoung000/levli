@@ -155,6 +155,22 @@ export default function HomePage(): React.JSX.Element {
         </div>
       </section>
 
+      <section className={styles.backersSection} aria-labelledby="backers-title">
+        <h2 id="backers-title">Backed by</h2>
+        <ul className={styles.backerLogos}>
+          {BACKERS.map((backer) => (
+            <li key={backer.name}>
+              <Image
+                alt={backer.name}
+                height={backer.height}
+                src={backer.src}
+                width={backer.width}
+              />
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section className={styles.finalCta}>
         <div className={styles.finalCtaGraphic} aria-hidden="true">
           <Image
@@ -186,6 +202,13 @@ const PATH_STEPS = [
   { number: "01", title: "Choose your challenge", body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", Icon: ChallengeIcon },
   { number: "02", title: "Trade and pass", body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", Icon: TradingIcon },
   { number: "03", title: "Get funded. Get paid in USDC", body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", Icon: FundedIcon },
+] as const;
+
+// 로고별 렌더 높이는 시각적 무게를 맞춘 실측값(디자인 1440px 기준), width는 원본 종횡비 유지
+const BACKERS = [
+  { name: "Aster", src: "/logos/aster-logo.png", width: 173, height: 46 },
+  { name: "Hyperliquid", src: "/logos/hyperliquid-logo.png", width: 211, height: 33 },
+  { name: "Nado", src: "/logos/nado-logo.png", width: 163, height: 36 },
 ] as const;
 
 const PAYOUTS = Array.from({ length: 5 }, () => ({
