@@ -37,6 +37,16 @@
 에셋:
 - `public/icons/` — icons8 PNG 원본(waitlist 벤핏·메달은 CSS mask로 민트 단색화해 사용)
 - `public/images/` — 홈 최종 CTA 그래픽
+- `public/logos/` — Backed by 파트너 로고 3종(Aster/Hyperliquid/Nado). **알파 bbox에 타이트 크롭된
+  상태**라 CSS `height`가 곧 잉크 높이다. 로고 교체 시 반드시 동일하게 타이트 크롭할 것
+
+홈 Backed by 섹션(`.backersSection`, FAQ ↔ 최종 CTA 사이) 실측 스펙 — 1440px 기준:
+- 섹션 높이 650px, 콘텐츠 수직 중앙(헤딩 잉크 top 261, 로고 행 y350~395)
+- 헤딩 `Backed by` = 다른 섹션 h2와 동일(64px/62.72 Host Grotesk, -2.24px)
+- 로고 행: 총폭 667px(x387~1053) 중앙 정렬, 로고 간 간격 60px
+- 로고 높이 Aster 46 / Hyperliquid 33 / Nado 36px(시각 무게 정렬), 폭은 원본 종횡비 유지
+- Hyperliquid만 `translateY(3px)` — 디자인에서 x-height 기준 광학 정렬된 값
+- 반응형: 760px 이하 로고 38/27/30px·간격 26/40, **575px 이하 세로 스택**
 
 ## 2. 디자인 토큰 (단일 소스)
 
