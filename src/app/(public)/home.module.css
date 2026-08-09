@@ -896,11 +896,13 @@
   .faqRow summary > span { font-size: 18px; line-height: 24px; }
   .faqAnswer { padding-right: 36px; }
 
+  /* 모바일: 로고 세로 나열 + 데스크톱 모바일치의 70% 크기 */
   .backersSection { height: auto; padding: 78px 20px 84px; gap: 30px; }
-  .backerLogos { flex-wrap: wrap; gap: 26px 40px; }
-  .backerLogos li:nth-child(1) img { width: auto; height: 38px; }
-  .backerLogos li:nth-child(2) img { width: auto; height: 27px; }
-  .backerLogos li:nth-child(3) img { width: auto; height: 30px; }
+  .backerLogos { flex-direction: column; gap: 22px; }
+  .backerLogos li:nth-child(1) img { width: auto; height: 27px; }
+  /* 세로 스택에서는 행 광학 정렬 보정이 불필요 */
+  .backerLogos li:nth-child(2) img { width: auto; height: 19px; transform: none; }
+  .backerLogos li:nth-child(3) img { width: auto; height: 21px; }
 
   .finalCta { height: 440px; }
   .finalCtaGraphic { top: 38px; width: 430px; height: auto; aspect-ratio: 545 / 457; }
@@ -908,11 +910,6 @@
   .finalActions { top: 242px; width: calc(100% - 40px); flex-direction: column; gap: 10px; }
   .finalCta .primaryButton,
   .finalCta .secondaryButton { width: 100%; }
-}
-
-/* 576px 미만은 3개가 한 줄에 못 들어가 2+1로 끊기므로 세로 스택 */
-@media (max-width: 575px) {
-  .backerLogos { flex-direction: column; gap: 26px; }
 }
 
 @media (max-width: 359px) {
