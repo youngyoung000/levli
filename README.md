@@ -1,7 +1,12 @@
 # Levli Landing
 
-> 이 저장소는 Levli 랜딩(퍼블릭 4페이지) **스탠드얼론** 코드입니다.
-> 원본 모노레포에서 랜딩 관련 파일만 추출했으며, 룰 상수는 `src/lib/rules-constants.ts`에 인라인되어 있습니다.
+> **작업을 시작하기 전에 [`AGENTS.md`](./AGENTS.md)를 먼저 읽으세요.**
+> 이 저장소를 실서비스 코드에 반영하는 순서·파일별 처리 방법·제거해야 할 데모 코드·
+> 사람에게 확인할 항목이 그 문서에 정리돼 있습니다. AI 에이전트로 작업하는 경우도 동일합니다.
+
+> 이 저장소는 Levli 랜딩(퍼블릭 5페이지) **스탠드얼론 디자인 확정본**입니다.
+> 실서비스 로직(지갑 서명·서버 API·실데이터)은 들어 있지 않고, 화면만 완성돼 있습니다.
+> 룰 상수는 `src/lib/rules-constants.ts`에 인라인되어 있습니다.
 
 
 퍼블릭 랜딩 4페이지(홈·Rules·FAQ·Waitlist)의 **완성 구현 코드** 핸드오프 문서.
@@ -28,11 +33,15 @@
 | `/rules` | Trading Rules | `src/app/(public)/rules/page.tsx` + `content-page.module.css`(공용) |
 | `/faq` | FAQ | `src/app/(public)/faq/page.tsx`, `faq-explorer.tsx`(클라이언트 검색/필터), `faq-content.ts`(47문항 데이터) |
 | `/waitlist` | Waitlist | `src/app/(public)/waitlist/page.tsx`, `waitlist-experience.tsx`(클라이언트 전체), `waitlist.module.css` |
+| `/coming-soon` | Coming Soon | `src/app/(public)/coming-soon/page.tsx` + `coming-soon.module.css` |
 | 공통 셸 | 헤더/푸터 | `src/app/(public)/layout.tsx` + `public-layout.module.css` |
 
 컴포넌트:
 - `components/brand/levli-logo.tsx` — 로고(콤비네이션/심볼)
-- `components/marketing/` — 히어로 그래픽, 화살표, **`path-icons.tsx`**(홈 카드 아이콘 3종: PNG를 potrace로 벡터화한 SVG + 부위별 모션)
+- `components/marketing/` — 히어로 그래픽, 화살표, **`path-icons.tsx`**(홈 카드 아이콘 3종: PNG를 potrace로 벡터화한 SVG + 부위별 모션),
+  **`terminal-preview.tsx`**(홈 "Inside the terminal" 목업 — 정적, 로직 없음)
+- `components/wallet/` — **`wallet-auth.tsx`**(⚠ DEMO ONLY 지갑 세션 목 구현 — 이 파일만 교체하면 된다),
+  `landing-wallet-login.tsx`(헤더 지갑 칩 + 팝오버, UI만)
 
 에셋:
 - `public/icons/` — icons8 PNG 원본(waitlist 벤핏·메달은 CSS mask로 민트 단색화해 사용)
@@ -59,7 +68,8 @@
 - 시맨틱: `--lv-action`, `--lv-line-dark`(white 15%), `--lv-line-light`(ink 20%), `--lv-muted-*`
 - 타이포: display=Host Grotesk / body=Instrument Sans / value=Roboto Mono / meta=JetBrains Mono
   (전부 Google Fonts, `app/layout.tsx`에서 next/font 로드)
-- 모션: `--lv-ease-out`(cubic-bezier(0.16,1,0.3,1)), `--lv-motion-fast`(180ms)
+- 모션: `--lv-ease-out`(cubic-bezier(0.16,1,0.3,1)) `--lv-ease-spring` ·
+  `--lv-motion-fast`(180ms) `--lv-motion-medium`(360ms) `--lv-motion-press`(110ms) · `--lv-shadow-action`
 - 사용 규칙: 다크 섹션 위 텍스트 = white/steel 계열, 라이트(paper) 섹션 = ink/muted-light.
   수치(KPI·코드·순위)는 mono + `font-variant-numeric: tabular-nums`.
 
@@ -82,49 +92,61 @@
   그룹 2·3은 `.heroGrid`(세로 디바이더 = 우측 428px)에 앵커하고 라인을 길게 뻗은 뒤
   hero `overflow:hidden`으로 잘라 끝점이 항상 정확히 맞물린다. 구조 변경 시 이 관계 유지할 것.
 
+### 홈 — Inside the terminal / Proof (개발 구현본에서 이식)
+- 터미널 프레임: 차트 라인 `drawChart`, 종가 점 `chartPulse`, 오더북 깊이 `bookDepth`
+- 섹션 라벨 점: `statusPulse` 2s / 히어로 배경 글로우: `glowBreath` 7s
+- Proof 카드: 호버 시 배경·문구 색 전환(화살표는 디자인 결정으로 제거)
+- 모바일(760px 이하): 터미널 프레임은 세로 스택이 아니라 **가로 스크롤**(`min-width: 660px`)
+
+### /coming-soon
+- h1 두 줄 순차 등장 `lineReveal`, 액세스 콘솔 패널 `consoleReveal`
+- 히어로 격자 배경(`heroGrid`)과 780px 글로우 원
+
 ### Waitlist 기타
 - 인풋 포커스: 민트 보더 + 글로우 (`.textInput:focus`)
 - 제출 모달 틱박스: 박스→체크 순차 스트로크 드로잉 (`tickDraw`, 0.5s + 0.4s 딜레이 0.55s)
 - 제출 버튼/X 공유 버튼: 민트 글로우 + 호버 시 화살표 이동
 - 리더보드 페이지네이션: 50행/페이지, `‹ 1 2 3 4 … 6 ›` (윈도우 알고리즘 `buildPageItems`)
 
-## 4. 데모 상태 재현법 (Waitlist)
+## 4. 상태별 확인 방법
 
-등록 상태는 서버 없이 **localStorage**에만 저장된다 (키: `levli.waitlist.entry`).
+지갑 연결은 SDK 없이 상태 전이만 재현하는 **목 구현**이다(`components/wallet/wallet-auth.tsx`).
+등록 상태는 서버 없이 localStorage(`levli.waitlist.entry`)에만 저장된다.
 
-- 미등록(폼) 상태: `localStorage.removeItem("levli.waitlist.entry")` 후 새로고침
-- 등록 상태 강제 주입:
-  ```js
-  localStorage.setItem("levli.waitlist.entry", JSON.stringify({
-    xHandle: "yourhandle", telegram: "yourhandle",
-    wallet: "0x1111111111111111111111111111111111111111",
-    referredBy: "LEVLI-TESTA", code: "LEVLI-7X8K2",
-    joinedAt: new Date().toISOString(),
-  })); location.reload();
-  ```
-- 제출 완료 모달: 폼 작성 → Join Waitlist 클릭 직후에만 표시
-- 레퍼럴 자동 입력: `/waitlist?ref=LEVLI-XXXXX` 접속 → 필드 자동 입력 + "Referral code applied"
+| 상태 | 링크 | 화면 |
+|---|---|---|
+| 지갑 미연결 | `/waitlist` | Secure your spot → Connect Wallet 게이트 |
+| 지갑 연결됨 | `/waitlist?demo=wallet` | 지갑 요약 카드 + X Handle·Referral 입력 + Join Waitlist |
+| 등록 완료 | `/waitlist?demo=joined` | You're on the waitlist + 레퍼럴 코드/링크 + Share on X |
+| 리더보드 데이터 | `/waitlist?lb=ranked` | 목데이터 273명 + 페이지네이션 |
+| 데이터 + 내 순위 | `/waitlist?lb=ranked&demo=joined` | 위 + 6위에 YOU 행 |
+
+- `?demo=` 는 저장소를 건드리지 않으므로 파라미터를 빼면 원래 상태로 돌아온다.
+- 실제 흐름(Connect Wallet 클릭 → 연결 → 폼 → 제출 → 모달)도 그대로 동작한다.
+- 레퍼럴 자동 입력: `/waitlist?ref=LEVLI-XXXXX` → 필드 자동 입력 + "Referral code applied"
 - X 공유: `x.com/intent/post` — 슬로건 + @Levli_Official + 개인 레퍼럴 링크 자동 완성
-- 리더보드 YOU 행: **데모용으로 등록 시 1페이지 6위에 인라인 표시** (`waitlist-experience.tsx`의
-  `isYou` 로직). 리더보드 데이터는 결정적 목데이터 273명(`LEADERBOARD_ROWS`).
+- 헤더는 지갑 연결 시 주소 칩(`0x…`)으로 바뀌고, 클릭하면 주소 복사·연결 해제 팝오버가 열린다.
+
+**위 파라미터·목데이터·페이지네이션은 검토용이다. 실서비스 반영 시 제거 대상 — `AGENTS.md` §3 참조.**
 
 ## 5. 미결 사항 / 서버 연동 지점
 
-1. **Waitlist 등록 API 없음** — 현재 프론트 단독(localStorage). 연동 시:
-   - 코드 발급을 서버로 이전 (`generateReferralCode()`는 클라이언트 임시 구현, 주석 참조)
-   - 중복 등록/핸들 검증, `referredBy` 유효성 검증 서버화
-2. **리더보드 실데이터** — `LEADERBOARD_ROWS` 목데이터 → API로 교체, 페이지네이션은 서버
-   페이징으로 전환 권장(현재 클라이언트 slice)
-3. **YOU 실순위** — 데모용 "6위 고정"을 실제 순위 삽입으로 교체 (스탯 스트립 값 동일)
-4. **홈 카피 잔여 Lorem ipsum** — One clear path 카드 본문, Choose your scale 부제, 홈 FAQ 답변
-5. **Recent Payouts 마퀴** — `$X,XXX` 플레이스홀더 (실데이터/정책 확정 후)
-6. **FAQ 히어로의 시뮬레이션 공시 밴드 제거됨**(디자인 결정) — 컴플라이언스 관점 재확인 필요.
-   Rules 본문 공시 박스·16번 섹션·푸터 문구는 유지되어 있음
-7. **헤더 Get Started / Log In** → `/login` 링크 (포털 연동 시점에 확정)
+1. **Waitlist 등록 API 없음** — 지갑 서명·서버 등록·레퍼럴 코드 발급을 실구현으로 교체
+   (`AGENTS.md` §3에 파일·상수 단위 목록)
+2. **리더보드 실데이터** — 목데이터 → API, 페이지네이션은 서버 페이징으로 전환하거나 제거
+3. **YOU 실순위** — 데모용 6위 고정을 실제 순위로
+4. **Recent Payouts** — 삭제 확정(Proof 섹션이 그 자리). 실측 payout이 쌓이면 재검토
+5. **용어 `payout` → `reward`** — 컴플라이언스 검토 결과인지 확인 필요. 맞다면 Rules 본문·ToS까지 통일
+6. **KYC 문구 완화** — "현재 Trial/Evaluation/Funded에 KYC를 요구하지 않는다"는 법무 검토 대상
+7. **법무 문서 링크** — 현재 외부 도메인(`levli-trading.vercel.app`). 최종 도메인 확정 시 교체
+8. **헤더 Get Started** → `/coming-soon`. 포털 오픈 시 실제 진입점으로 교체
 
 ## 6. 품질 체크 상태
 
-- `tsc --noEmit` 통과, 4페이지 렌더 정상
-- 반응형: 1100px / 760px 브레이크포인트 (waitlist 모바일 카드 순서: How it works → 내 스탯 → 리더보드)
+- `pnpm build` 통과, 5개 라우트(`/` `/rules` `/faq` `/waitlist` `/coming-soon`) 렌더 정상
+- 반응형: 1100px / 760px 브레이크포인트 (waitlist 모바일 카드 순서: How it works → 내 스탯 → 리더보드,
+  Partners 로고는 575px 이하 세로 스택)
+- 히어로 높이는 `calc(100svh - 118px)` — 히어로 + facts가 첫 화면에 맞물린다.
+  **창을 길게 만들어 전체 페이지를 한 장으로 캡처하면 히어로가 창 높이만큼 늘어나 왜곡된다.**
 - 접근성: 폼 라벨(sr-only)·aria-invalid·모달 포커스 트랩/Esc·페이지네이션 aria-current·
   reduced-motion 대응 포함

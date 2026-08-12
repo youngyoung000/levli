@@ -8,7 +8,10 @@
 .hero {
   position: relative;
   width: 100%;
-  height: 820px;
+  /* 헤더는 fixed로 히어로 위에 겹치므로, 히어로 + facts(118) = 한 화면.
+     → facts 4항목이 첫 화면 하단에 정확히 맞물린다 */
+  height: calc(100svh - 118px);
+  min-height: 700px;
   isolation: isolate;
   overflow: hidden;
   background: var(--lv-night);
@@ -27,14 +30,18 @@
   z-index: 2;
   width: min(1280px, calc(100% - 160px));
   height: 100%;
+  display: flex;
+  align-items: center;
+  /* 헤더가 겹치는 만큼 밀어, 헤더 아래 영역의 중앙에 앉힌다 */
+  padding-top: 74px;
   margin: 0 auto;
   pointer-events: none;
 }
 
 .heroCopyBlock {
-  position: absolute;
-  top: 248px;
-  left: 0;
+  position: relative;
+  /* 광학적으로 살짝 위쪽에 앉힌다(디자인 시안 비율) */
+  bottom: 26px;
   width: 560px;
   pointer-events: auto;
 }
@@ -42,7 +49,8 @@
 .hero h1 {
   width: 560px;
   height: 142px;
-  margin: 0;
+  /* 배지(eyebrow) → h1 간격은 개발 버전과 동일하게 30px */
+  margin: 30px 0 0;
   color: var(--lv-white);
   font: 500 72px/70.56px var(--lv-font-display);
   letter-spacing: -2.88px;
@@ -97,10 +105,12 @@
 }
 
 .secondaryButton {
-  width: 132px;
+  min-width: 132px;
+  padding: 0 22px;
   border: 1px solid rgb(255 255 255 / 0.22);
   color: var(--lv-white);
   background: var(--lv-night);
+  white-space: nowrap;
 }
 
 .primaryButton svg,
@@ -175,7 +185,7 @@
 
 .pathSection {
   position: relative;
-  height: 590px;
+  height: 630px;
   color: var(--lv-ink);
   background: var(--lv-paper);
 }
@@ -253,10 +263,14 @@
 }
 
 @keyframes flagWave {
-  0%, 100% { transform: rotate(0deg) scaleY(1); }
-  30% { transform: rotate(-4deg) scaleY(0.95); }
-  60% { transform: rotate(2.5deg) scaleY(1.03); }
+  0%, 100% { transform: rotate(0deg) scaleY(1);
+  }
+  30% { transform: rotate(-4deg) scaleY(0.95);
+  }
+  60% { transform: rotate(2.5deg) scaleY(1.03);
+  }
 }
+
 
 /* 상승 화살표: 좌→우 리빌 후 잠시 유지, 좌측부터 사라짐 */
 .trailPath {
@@ -264,10 +278,14 @@
 }
 
 @keyframes trailReveal {
-  0% { clip-path: inset(0 100% 0 0); }
-  38%, 78% { clip-path: inset(0 0 0 0); }
-  100% { clip-path: inset(0 0 0 100%); }
+  0% { clip-path: inset(0 100% 0 0);
+  }
+  38%, 78% { clip-path: inset(0 0 0 0);
+  }
+  100% { clip-path: inset(0 0 0 100%);
+  }
 }
+
 
 /* 코인 바운스 (SVG 사용자 좌표 단위: viewBox 800 기준) */
 .coinGroup {
@@ -275,15 +293,18 @@
 }
 
 @keyframes coinBob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-56px); }
+  0%, 100% { transform: translateY(0);
+  }
+  50% { transform: translateY(-56px);
+  }
 }
 
+
 @media (prefers-reduced-motion: reduce) {
-  .flagCloth,
-  .trailPath,
-  .coinGroup { animation: none; }
+  .flagCloth, .trailPath, .coinGroup { animation: none;
+  }
 }
+
 
 .pathGrid li > div:last-child { position: static; }
 
@@ -311,7 +332,7 @@
 }
 
 .pricingSection {
-  height: 620px;
+  height: 704px;
   color: var(--lv-white);
   background: var(--lv-ink);
 }
@@ -440,6 +461,7 @@
   }
 }
 
+
 .pricingFoot {
   position: absolute;
   top: 554px;
@@ -491,10 +513,10 @@
   transition: transform 520ms var(--lv-ease-out);
 }
 
-.ruleGrid article:nth-child(1) { top: 0; }
-.ruleGrid article:nth-child(2) { top: 111px; }
-.ruleGrid article:nth-child(3) { top: 222px; }
-.ruleGrid article:nth-child(4) { top: 333px; }
+.ruleGrid article:nth-of-type(1) { top: 0; }
+.ruleGrid article:nth-of-type(2) { top: 111px; }
+.ruleGrid article:nth-of-type(3) { top: 222px; }
+.ruleGrid article:nth-of-type(4) { top: 333px; }
 .ruleLabel {
   position: absolute;
   top: 6px;
@@ -512,7 +534,7 @@
   text-align: right;
 }
 
-.ruleGrid article:last-child .ruleValue { width: 149px; }
+.ruleGrid article:nth-of-type(4) .ruleValue { width: 149px; }
 
 .ruleValue strong {
   display: block;
@@ -683,7 +705,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 33px;
+  /* 간격은 자식 margin으로만 제어한다(gap과 중복되면 벌어짐) */
+  gap: 0;
   color: var(--lv-ink);
   background: var(--lv-paper);
   text-align: center;
@@ -694,7 +717,7 @@
   align-items: center;
   justify-content: center;
   gap: 60px;
-  margin: 0;
+  margin: 30px 0 0;
   padding: 0;
   list-style: none;
 }
@@ -752,6 +775,9 @@
   opacity: 0.52;
 }
 
+
+
+
 .finalCta h2 {
   position: absolute;
   z-index: 1;
@@ -765,7 +791,7 @@
 .finalActions {
   position: absolute;
   z-index: 1;
-  top: 288px;
+  top: 316px;
   left: 50%;
   margin: 0;
   transform: translateX(-50%);
@@ -778,37 +804,67 @@
 }
 
 @keyframes payout-flow {
-  to { transform: translateX(-50%); }
+  to { transform: translateX(-50%);
+  }
 }
 
+
 #facts,
+#terminal,
+#how-it-works,
 #pricing,
 #rules,
+#proof,
 #faq { scroll-margin-top: 74px; }
 
 @media (max-width: 1100px) {
-  .heroInner,
-  .pricingShell,
-  .rulesShell { width: calc(100% - 80px); }
-  .pathGrid { right: 40px; left: 40px; width: auto; grid-template-columns: repeat(3, 1fr); }
-  .pathSection .sectionIntro,
-  .payoutHeader { left: 40px; }
-  .faqSection { grid-template-columns: minmax(260px, 40%) minmax(0, 1fr); column-gap: 64px; padding-right: 40px; padding-left: 40px; }
-  .planGrid { width: 100%; grid-template-columns: repeat(2, 1fr); }
-  .pricingSection { height: 900px; }
-  .planGrid article { height: 250px; }
-  .pricingFoot { top: 830px; }
-  .rulesHeader { width: 440px; }
-  .ruleGrid { right: 0; width: 400px; }
-  .faqList { width: 100%; }
-  .faqRow { width: 100%; }
-  .heroGraphic { right: 24px; width: 490px; height: auto; aspect-ratio: 545 / 541; }
+  .heroInner, .pricingShell, .rulesShell { width: calc(100% - 80px);
+  }
+  .pathGrid { right: 40px; left: 40px; width: auto; grid-template-columns: repeat(3, 1fr);
+  }
+  .pathSection .sectionIntro, .payoutHeader { left: 40px;
+  }
+  .faqSection { grid-template-columns: minmax(260px, 40%) minmax(0, 1fr); column-gap: 64px; padding-right: 40px; padding-left: 40px;
+  }
+  .planGrid { width: 100%; grid-template-columns: repeat(2, 1fr);
+  }
+  .pricingSection { height: 900px;
+  }
+  .planGrid article { height: 250px;
+  }
+  .pricingFoot { top: 830px;
+  }
+  .rulesHeader { width: 440px;
+  }
+  .ruleGrid { right: 0; width: 400px;
+  }
+  .faqList { width: 100%;
+  }
+  .faqRow { width: 100%;
+  }
+  .heroGraphic { right: 24px; width: 490px; height: auto; aspect-ratio: 545 / 541;
+  }
 }
 
+
 @media (max-width: 760px) {
-  .hero { height: 720px; }
+  .hero {
+    height: auto;
+    min-height: 0;
+    padding-bottom: 96px;
+  }
+  .heroInner {
+    display: block;
+    padding-top: 0;
+  }
+  .heroCopyBlock {
+    position: static;
+    bottom: auto;
+    padding-top: 118px;
+  }
   .heroGraphic {
-    top: 488px;
+    top: auto;
+    bottom: -24px;
     right: auto;
     left: 50%;
     width: 300px;
@@ -817,112 +873,960 @@
     opacity: 0.88;
     transform: translateX(-50%);
   }
-  .heroInner { width: calc(100% - 40px); }
-  .heroCopyBlock { top: 126px; width: 100%; }
-  .hero h1 { width: 100%; height: 94px; font-size: 48px; line-height: 47.04px; letter-spacing: -1.92px; }
-  .heroCopy { width: 100%; min-height: auto; margin-top: 32px; font-size: 15px; line-height: 23.25px; }
-  .heroActions { width: 100%; flex-direction: column; align-items: stretch; gap: 10px; margin-top: 32px; }
-  .heroActions .primaryButton,
-  .heroActions .secondaryButton { width: 100%; }
-  .facts { height: 220px; grid-template-columns: repeat(2, 1fr); }
-  .facts div { height: 110px; padding: 0 20px; }
-  .facts div:nth-child(2) { border-right: 0; }
-  .facts div:nth-child(-n + 2) { border-bottom: 1px solid rgb(16 18 23 / 0.14); }
-  .facts span,
-  .facts strong { left: 20px; }
-  .facts span { top: 22px; }
-  .facts strong { top: 66px; font-size: 15px; line-height: 20px; }
-
-  .sectionIntro h2,
-  .backersSection h2,
-  .finalCta h2 { font-size: 44px; line-height: 44px; letter-spacing: -1.54px; }
-  .pathSection { height: auto; padding: 72px 20px; }
-  .pathSection .sectionIntro { position: static; }
-  .pathGrid { position: static; width: 100%; grid-template-columns: 1fr; gap: 10px; margin-top: 52px; }
-  .pathGrid li,
-  .pathGrid li:nth-child(2),
-  .pathGrid li:nth-child(3) { height: 250px; border-bottom: 1px solid rgb(16 18 23 / 0.16); border-radius: 0; }
-  .pathIcon,
-  .pathGrid li:nth-child(2) .pathIcon,
-  .pathGrid li:nth-child(3) .pathIcon { top: 52px; width: 88px; height: 88px; }
-  .pathGrid h3 { right: 20px; bottom: 68px; font-size: 21px; line-height: 24px; white-space: normal; }
-  .pathGrid p { right: 20px; bottom: 18px; min-height: 42px; font-size: 13px; line-height: 20px; }
-
-  .pricingSection { height: auto; padding: 72px 20px 78px; }
-  .pricingShell { width: 100%; }
-  .pricingHeader,
-  .planGrid,
-  .pricingFoot { position: static; }
-  .pricingHeader .sectionIntro > p { width: 100%; }
-  .planGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 48px; }
-  .planGrid article { height: 188px; }
-  .planTopline strong { top: 14px; left: 14px; font-size: 16px; }
-  .planSelect > p { top: 46px; left: 14px; width: 140px; font-size: 12px; line-height: 18px; }
-  .planPrice strong { top: 122px; left: 14px; font-size: 36px; line-height: 36px; letter-spacing: -1.44px; }
-  .planLines i:nth-child(1) { top: 167px; }
-  .planLines i:nth-child(2) { top: 173px; }
-  .planLines i:nth-child(3) { top: 178px; }
-  .planLines i:nth-child(4) { top: 182px; }
-  .planLines i:nth-child(5) { top: 185px; }
-  .pricingFoot { margin-top: 20px; }
-
-  .rulesSection { height: auto; padding: 82px 20px 88px; }
-  .rulesShell { width: 100%; }
-  .rulesHeader,
-  .ruleGrid { position: static; width: 100%; height: auto; }
-  .rulesHeader { height: auto; }
-  .rulesHeader .sectionIntro > p { width: 100%; margin-top: 22px; }
-  .ruleGrid { margin-top: 72px; }
-  .ruleGrid article { position: relative; top: auto !important; width: 100%; height: 71px; margin-top: 40px; }
-  .ruleGrid article:first-child { margin-top: 0; }
-  .ruleGrid article:hover { transform: translateX(-12px); }
-  .ruleLabel { font-size: 16px; }
-  .ruleValue strong { font-size: 44px; line-height: 48px; letter-spacing: -1.76px; }
-
-  .payoutSection { height: 350px; }
-  .payoutHeader { top: 72px; left: 20px; }
-  .payoutMarquee { top: 176px; left: 0; width: 100vw; }
-  .payoutGroup article { width: 260px; flex-basis: 260px; }
-
-  .faqSection { min-height: 0; display: block; padding: 78px 20px 88px; }
-  .faqSection .sectionIntro,
-  .faqList { position: static; width: 100%; height: auto; }
-  .faqSection .sectionIntro { margin-top: 0; }
-  .faqSection .sectionIntro h2 { height: 88px; }
-  .faqSection .textLink { margin-top: 26px; }
-  .faqList { margin-top: 58px; }
-  .faqRow { width: 100%; }
-  .faqRow summary { min-height: 82px; padding-right: 4px; }
-  .faqRow summary > span { font-size: 18px; line-height: 24px; }
-  .faqAnswer { padding-right: 36px; }
-
+  .heroInner { width: calc(100% - 40px);
+  }
+  .heroCopyBlock { width: 100%;
+  }
+  .hero h1 { width: 100%; height: 94px; font-size: 48px; line-height: 47.04px; letter-spacing: -1.92px;
+  }
+  .heroCopy { width: 100%; min-height: auto; margin-top: 32px; font-size: 15px; line-height: 23.25px;
+  }
+  .heroActions { width: 100%; flex-direction: column; align-items: stretch; gap: 10px; margin-top: 32px;
+  }
+  .heroActions .primaryButton, .heroActions .secondaryButton { width: 100%;
+  }
+  .facts { height: 220px; grid-template-columns: repeat(2, 1fr);
+  }
+  .facts div { height: 110px; padding: 0 20px;
+  }
+  .facts div:nth-child(2) { border-right: 0;
+  }
+  .facts div:nth-child(-n + 2) { border-bottom: 1px solid rgb(16 18 23 / 0.14);
+  }
+  .facts span, .facts strong { left: 20px;
+  }
+  .facts span { top: 22px;
+  }
+  .facts strong { top: 66px; font-size: 15px; line-height: 20px;
+  }
+  .sectionIntro h2, .backersSection h2, .finalCta h2 { font-size: 44px; line-height: 44px; letter-spacing: -1.54px;
+  }
+  .pathSection { height: auto; padding: 72px 20px;
+  }
+  .pathSection .sectionIntro { position: static;
+  }
+  .pathGrid { position: static; width: 100%; grid-template-columns: 1fr; gap: 10px; margin-top: 52px;
+  }
+  .pathGrid li, .pathGrid li:nth-child(2), .pathGrid li:nth-child(3) { height: 250px; border-bottom: 1px solid rgb(16 18 23 / 0.16); border-radius: 0;
+  }
+  .pathIcon, .pathGrid li:nth-child(2) .pathIcon, .pathGrid li:nth-child(3) .pathIcon { top: 52px; width: 88px; height: 88px;
+  }
+  .pathGrid h3 { right: 20px; bottom: 68px; font-size: 21px; line-height: 24px; white-space: normal;
+  }
+  .pathGrid p { right: 20px; bottom: 18px; min-height: 42px; font-size: 13px; line-height: 20px;
+  }
+  .pricingSection { height: auto; padding: 72px 20px 78px;
+  }
+  .pricingShell { width: 100%;
+  }
+  .pricingHeader, .planGrid, .pricingFoot { position: static;
+  }
+  .pricingHeader .sectionIntro > p { width: 100%;
+  }
+  .planGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 48px;
+  }
+  .planGrid article { height: 188px;
+  }
+  .planTopline strong { top: 14px; left: 14px; font-size: 16px;
+  }
+  .planSelect > p { top: 46px; left: 14px; width: 140px; font-size: 12px; line-height: 18px;
+  }
+  .planPrice strong { top: 122px; left: 14px; font-size: 36px; line-height: 36px; letter-spacing: -1.44px;
+  }
+  .planLines i:nth-child(1) { top: 167px;
+  }
+  .planLines i:nth-child(2) { top: 173px;
+  }
+  .planLines i:nth-child(3) { top: 178px;
+  }
+  .planLines i:nth-child(4) { top: 182px;
+  }
+  .planLines i:nth-child(5) { top: 185px;
+  }
+  .pricingFoot { margin-top: 20px;
+  }
+  .rulesSection { height: auto; padding: 82px 20px 88px;
+  }
+  .rulesShell { width: 100%;
+  }
+  .rulesHeader, .ruleGrid { position: static; width: 100%; height: auto;
+  }
+  .rulesHeader { height: auto;
+  }
+  .rulesHeader .sectionIntro > p { width: 100%; margin-top: 22px;
+  }
+  .ruleGrid { margin-top: 72px;
+  }
+  .ruleGrid article { position: relative; top: auto !important; width: 100%; height: 71px; margin-top: 40px;
+  }
+  .ruleGrid article:first-child { margin-top: 0;
+  }
+  .ruleGrid article:hover { transform: translateX(-12px);
+  }
+  .ruleLabel { font-size: 16px;
+  }
+  .ruleValue strong { font-size: 44px; line-height: 48px; letter-spacing: -1.76px;
+  }
+  .payoutSection { height: 350px;
+  }
+  .payoutHeader { top: 72px; left: 20px;
+  }
+  .payoutMarquee { top: 176px; left: 0; width: 100vw;
+  }
+  .payoutGroup article { width: 260px; flex-basis: 260px;
+  }
+  .faqSection { min-height: 0; display: block; padding: 78px 20px 88px;
+  }
+  .faqSection .sectionIntro, .faqList { position: static; width: 100%; height: auto;
+  }
+  .faqSection .sectionIntro { margin-top: 0;
+  }
+  .faqSection .sectionIntro h2 { height: 88px;
+  }
+  .faqSection .textLink { margin-top: 26px;
+  }
+  .faqList { margin-top: 58px;
+  }
+  .faqRow { width: 100%;
+  }
+  .faqRow summary { min-height: 82px; padding-right: 4px;
+  }
+  .faqRow summary > span { font-size: 18px; line-height: 24px;
+  }
+  .faqAnswer { padding-right: 36px;
+  }
   /* 모바일: 로고 세로 나열 + 데스크톱 모바일치의 70% 크기 */
-  .backersSection { height: auto; padding: 78px 20px 84px; gap: 30px; }
-  .backerLogos { flex-direction: column; gap: 22px; }
-  .backerLogos li:nth-child(1) img { width: auto; height: 27px; }
-  /* 세로 스택에서는 행 광학 정렬 보정이 불필요 */
-  .backerLogos li:nth-child(2) img { width: auto; height: 19px; transform: none; }
-  .backerLogos li:nth-child(3) img { width: auto; height: 21px; }
-
-  .finalCta { height: 440px; }
-  .finalCtaGraphic { top: 38px; width: 430px; height: auto; aspect-ratio: 545 / 457; }
-  .finalCta h2 { top: 154px; width: calc(100% - 40px); height: auto; }
-  .finalActions { top: 242px; width: calc(100% - 40px); flex-direction: column; gap: 10px; }
-  .finalCta .primaryButton,
-  .finalCta .secondaryButton { width: 100%; }
+  .backersSection { height: auto; padding: 78px 20px 84px; gap: 0;
+  }
+  .backersLede { margin-top: 14px;
+  }
+  .backerLogos { flex-direction: column; gap: 22px; margin-top: 34px;
+  }
+  .backerLogos li:nth-child(1) img { width: auto; height: 27px;
+  }
+  /* 세로 스택에서는 행 광학 정렬 보정이 불필요 */ .backerLogos li:nth-child(2) img { width: auto; height: 19px; transform: none;
+  }
+  .backerLogos li:nth-child(3) img { width: auto; height: 21px;
+  }
+  .finalCta { height: 470px;
+  }
+  .finalCtaGraphic { top: 38px; width: 430px; height: auto; aspect-ratio: 545 / 457;
+  }
+  .finalCta h2 { top: 154px; width: calc(100% - 40px); height: auto;
+  }
+  .finalActions { top: 268px; width: calc(100% - 40px); flex-direction: column; gap: 10px;
+  }
+  .finalCta .primaryButton, .finalCta .secondaryButton { width: 100%;
+  }
 }
+
 
 @media (max-width: 359px) {
-  .planGrid { grid-template-columns: 1fr; }
+  .planGrid { grid-template-columns: 1fr;
+  }
 }
 
+
 @media (prefers-reduced-motion: reduce) {
-  .primaryButton,
-  .secondaryButton,
-  .sectionButton,
-  .planLines i,
-  .ruleGrid article,
-  .ruleValue strong { transition: none; }
-  .payoutTrack { animation: none; }
-  .faqRow summary i { transition: none; }
+  .primaryButton, .secondaryButton, .sectionButton, .planLines i, .ruleGrid article, .ruleValue strong { transition: none;
+  }
+  .payoutTrack { animation: none;
+  }
+  .faqRow summary i { transition: none;
+  }
 }
+
+
+/* ============================================================
+   개발 버전(levli-landing-two) 배포본에서 이식한 신규 섹션 CSS —
+   Inside the terminal · Proof, not promises · 공통 kicker/chips/glow.
+   클래스 프리픽스만 제거했고 선언·미디어쿼리는 배포본과 동일하다.
+   ============================================================ */
+
+.heroGlow {
+  z-index:-1;
+  filter:blur(18px);
+  background:radial-gradient(circle,#00edd524,#00edd506 42%,#0000 70%);
+  border-radius:50%;
+  width:780px;
+  height:780px;
+  animation:7s ease-in-out infinite glowBreath;
+  position:absolute;
+  top:120px;
+  right:max(-140px,50vw - 860px);
+}
+
+.eyebrow, .sectionKicker {
+  color:var(--lv-mint);
+  font:600 10px/14px var(--lv-font-meta);
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  align-items:center;
+  gap:10px;
+  margin:0;
+  display:flex;
+}
+
+.eyebrow span, .betaNote span {
+  background:var(--lv-mint);
+  border-radius:50%;
+  flex:0 0 6px;
+  width:6px;
+  height:6px;
+  animation:2s ease-in-out infinite statusPulse;
+  display:block;
+  box-shadow:0 0 18px #00edd5d1;
+}
+
+.heroChips {
+  opacity:0;
+  animation:heroCopyIn .7s .45s var(--lv-ease-out) forwards;
+  align-items:center;
+  gap:8px;
+  margin:31px 0 0;
+  padding:0;
+  list-style:none;
+  display:flex;
+}
+
+.heroChips li {
+  color:#ffffff8f;
+  font:500 10px/12px var(--lv-font-meta);
+  letter-spacing:.02em;
+  background:#ffffff06;
+  border:1px solid #ffffff21;
+  border-radius:999px;
+  padding:7px 11px;
+}
+
+/* 다크 섹션 기본값 — 라이트 섹션은 아래에서 잉크 62%로 덮는다 */
+.sectionIntro>p:not(.sectionKicker) {
+  color:var(--lv-steel);
+  font:400 15px/23.25px var(--lv-font-body);
+  margin:21px 0 0;
+}
+
+/* 라이트(paper) 섹션의 리드문 색 */
+.pathSection .sectionIntro > p,
+.terminalIntro .sectionIntro > p,
+.proofHeader .sectionIntro > p {
+  color:var(--lv-muted-light);
+}
+
+.terminalSection {
+  min-height:970px;
+  color:var(--lv-ink);
+  background:var(--lv-paper);
+  padding:108px max(40px,50vw - 640px);
+  position:relative;
+}
+
+.terminalIntro {
+  display:block;
+}
+
+/* 리드문은 Choose your scale과 동일한 간격·크기(21px / 15px·23.25px) */
+.terminalIntro .sectionIntro > p,
+.proofHeader .sectionIntro > p {
+  width:min(840px, 100%);
+  margin:21px 0 0;
+  color:var(--lv-muted-light);
+  font:400 15px/23.25px var(--lv-font-body);
+}
+
+.terminalFrame {
+  color:var(--lv-white);
+  transition:box-shadow var(--lv-motion-slow) var(--lv-ease-out), translate var(--lv-motion-slow) var(--lv-ease-out);
+  background:#0c0f14;
+  border:1px solid #1012172e;
+  margin-top:63px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 34px 90px #1012172b;
+}
+
+.terminalFrame:hover {
+  translate:0 -5px;
+  box-shadow:0 42px 105px #1012173d;
+}
+
+.terminalTopbar {
+  background:#101319;
+  border-bottom:1px solid #ffffff1a;
+  justify-content:space-between;
+  align-items:center;
+  height:56px;
+  padding:0 20px;
+  display:flex;
+}
+
+.terminalTopbar>div, .terminalStatus {
+  align-items:center;
+  gap:10px;
+  display:flex;
+}
+
+.terminalTopbar strong {
+  font:600 13px/16px var(--lv-font-body);
+}
+
+.terminalTopbar i {
+  color:var(--lv-steel);
+  font:500 9px/10px var(--lv-font-meta);
+  text-transform:uppercase;
+  border:1px solid #ffffff1f;
+  border-radius:999px;
+  padding:4px 7px;
+  font-style:normal;
+}
+
+.windowDot {
+  background:var(--lv-mint);
+  border-radius:50%;
+  width:8px;
+  height:8px;
+  display:block;
+  box-shadow:0 0 14px #00edd5b3;
+}
+
+.terminalStatus {
+  color:var(--lv-steel);
+  font:500 9px/12px var(--lv-font-meta);
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+.terminalStatus span {
+  background:var(--lv-mint);
+  border-radius:50%;
+  width:5px;
+  height:5px;
+  animation:1.8s ease-in-out infinite statusPulse;
+}
+
+.riskStrip {
+  border-bottom:1px solid #ffffff1a;
+  grid-template-columns:repeat(4,1fr);
+  min-height:92px;
+  display:grid;
+}
+
+.riskStrip>div {
+  border-right:1px solid #ffffff1a;
+  grid-template-columns:1fr auto;
+  align-content:center;
+  gap:9px 16px;
+  padding:16px 20px;
+  display:grid;
+}
+
+.riskStrip>div:last-child {
+  border-right:0;
+}
+
+.riskStrip span {
+  color:var(--lv-steel);
+  font:500 9px/12px var(--lv-font-meta);
+  text-transform:uppercase;
+}
+
+.riskStrip strong {
+  font:700 17px/20px var(--lv-font-value);
+  grid-column:1;
+}
+
+.riskStrip small {
+  color:var(--lv-mint);
+  font:500 9px/12px var(--lv-font-meta);
+  grid-area:2/2;
+}
+
+.terminalGrid {
+  grid-template-columns:minmax(0,1fr) 220px 250px;
+  min-height:450px;
+  display:grid;
+}
+
+.chartPanel, .orderBookPanel, .ticketPanel {
+  background:#0c0f14;
+  min-width:0;
+}
+
+.chartPanel, .orderBookPanel {
+  border-right:1px solid #ffffff1a;
+}
+
+.panelHeader {
+  border-bottom:1px solid #ffffff14;
+  justify-content:space-between;
+  align-items:center;
+  height:58px;
+  padding:0 16px;
+  display:flex;
+}
+
+.panelHeader>div {
+  align-items:center;
+  gap:10px;
+  display:flex;
+}
+
+.panelHeader strong {
+  font:600 11px/14px var(--lv-font-meta);
+}
+
+.panelHeader span {
+  color:var(--lv-steel);
+  font:500 9px/12px var(--lv-font-meta);
+}
+
+.panelHeader .positive {
+  color:var(--lv-mint);
+}
+
+.chartCanvas {
+  height:340px;
+  position:relative;
+  overflow:hidden;
+}
+
+.chartGrid {
+  background-image:linear-gradient(#ffffff0b 1px,#0000 1px),linear-gradient(90deg,#ffffff0b 1px,#0000 1px);
+  background-size:100% 68px,95px 100%;
+  position:absolute;
+  inset:0;
+}
+
+.chartCanvas svg {
+  width:100%;
+  height:calc(100% - 48px);
+  position:absolute;
+  inset:26px 0 22px;
+  overflow:visible;
+}
+
+.chartArea {
+  fill:url(#chart-fill);
+}
+
+.chartLine {
+  fill:none;
+  stroke:var(--lv-mint);
+  stroke-width:2px;
+  vector-effect:non-scaling-stroke;
+  stroke-dasharray:1200;
+  stroke-dashoffset:1200px;
+  animation:drawChart 2.2s .35s var(--lv-ease-out) forwards;
+}
+
+.chartPulse {
+  fill:var(--lv-mint);
+  filter:drop-shadow(0 0 8px var(--lv-mint));
+  animation:1.8s ease-in-out infinite chartPoint;
+}
+
+.chartPrice {
+  color:var(--lv-ink);
+  background:var(--lv-mint);
+  font:700 9px/10px var(--lv-font-value);
+  padding:4px 7px;
+  position:absolute;
+  top:38px;
+  right:0;
+}
+
+.chartFooter {
+  color:#ffffff4d;
+  height:34px;
+  font:500 8px/10px var(--lv-font-meta);
+  border-top:1px solid #ffffff14;
+  justify-content:space-around;
+  align-items:center;
+  display:flex;
+}
+
+.bookLabels, .bookRows>div {
+  grid-template-columns:1fr .72fr;
+  gap:12px;
+  padding:0 14px;
+  display:grid;
+  position:relative;
+}
+
+.bookLabels {
+  color:#ffffff52;
+  height:31px;
+  font:500 8px/10px var(--lv-font-meta);
+  align-items:center;
+}
+
+.bookLabels span:last-child, .bookRows>div span:last-of-type {
+  text-align:right;
+}
+
+.bookRows>div {
+  color:#ffffffb8;
+  height:47px;
+  font:500 9px/12px var(--lv-font-value);
+  align-items:center;
+  overflow:hidden;
+}
+
+.bookRows>div i {
+  z-index:0;
+  width:var(--book-width,48%);
+  opacity:.08;
+  transform-origin:100%;
+  animation:4s ease-in-out infinite alternate bookDepth;
+  position:absolute;
+  top:3px;
+  bottom:3px;
+  right:0;
+}
+
+.bookRows>div:nth-child(2n) i {
+  --book-width:70%;
+  animation-delay:-1.3s;
+}
+
+.bookRows>div:nth-child(3n) i {
+  --book-width:34%;
+  animation-delay:-2.1s;
+}
+
+.bookRows>div span {
+  z-index:1;
+  position:relative;
+}
+
+.ask span:first-child {
+  color:#ff7f8e;
+}
+
+.ask i {
+  background:#ff5f72;
+}
+
+.bid span:first-child {
+  color:var(--lv-mint);
+}
+
+.bid i {
+  background:var(--lv-mint);
+}
+
+.ticketPanel {
+  padding-bottom:14px;
+}
+
+.ticketToggle {
+  height:36px;
+  font:600 9px/12px var(--lv-font-meta);
+  border:1px solid #ffffff1a;
+  grid-template-columns:1fr 1fr;
+  margin:14px;
+  display:grid;
+  overflow:hidden;
+}
+
+.ticketToggle span {
+  color:var(--lv-steel);
+  place-items:center;
+  display:grid;
+}
+
+.ticketToggle span:first-child {
+  color:var(--lv-ink);
+  background:var(--lv-mint);
+}
+
+.ticketField {
+  margin:13px 14px 0;
+  display:block;
+}
+
+.ticketField>span {
+  color:var(--lv-steel);
+  font:500 8px/10px var(--lv-font-meta);
+  text-transform:uppercase;
+  margin-bottom:7px;
+  display:block;
+}
+
+.ticketField>div {
+  border:1px solid #ffffff1f;
+  justify-content:space-between;
+  align-items:center;
+  height:42px;
+  padding:0 11px;
+  display:flex;
+}
+
+.ticketField strong {
+  font:500 11px/14px var(--lv-font-value);
+}
+
+.ticketField i {
+  color:var(--lv-steel);
+  font:500 8px/10px var(--lv-font-meta);
+  font-style:normal;
+}
+
+.ticketPanel dl {
+  margin:17px 14px 0;
+}
+
+.ticketPanel dl div {
+  color:var(--lv-steel);
+  font:500 8px/10px var(--lv-font-meta);
+  justify-content:space-between;
+  margin-top:9px;
+  display:flex;
+}
+
+.ticketPanel dd {
+  color:#ffffffb8;
+  margin:0;
+}
+
+.ticketPanel button {
+  color:#00edd5a8;
+  width:calc(100% - 28px);
+  height:40px;
+  font:600 9px/12px var(--lv-font-meta);
+  background:#00edd50f;
+  border:1px solid #00edd54d;
+  margin:19px 14px 0;
+}
+
+.terminalDisclosure {
+  color:var(--lv-muted-light);
+  font:500 9px/13px var(--lv-font-meta);
+  text-align:right;
+  margin:15px 0 0;
+}
+
+.proofSection {
+  min-height:650px;
+  color:var(--lv-ink);
+  background:var(--lv-paper);
+  padding:112px max(40px,50vw - 640px);
+}
+
+.proofHeader {
+  display:block;
+}
+
+
+
+.proofGrid {
+  border-top:1px solid #1012172e;
+  grid-template-columns:repeat(3,1fr);
+  margin-top:70px;
+  display:grid;
+}
+
+.proofGrid article {
+  min-height:270px;
+  transition:color var(--lv-motion-fast) var(--lv-ease-out), background-color var(--lv-motion-medium) var(--lv-ease-out), translate var(--lv-motion-medium) var(--lv-ease-out);
+  border-right:1px solid #1012172e;
+  padding:25px;
+  position:relative;
+}
+
+.proofGrid article:last-child {
+  border-right:0;
+}
+
+.proofGrid article:hover {
+  color:var(--lv-white);
+  background:var(--lv-ink);
+  translate:0 -7px;
+}
+
+.proofGrid article>span {
+  font:700 14px/18px var(--lv-font-value);
+}
+
+.proofGrid article>div {
+  position:absolute;
+  bottom:27px;
+  left:25px;
+  right:25px;
+}
+
+/* 카드 텍스트는 One clear path 카드와 동일 스타일 */
+.proofGrid h3 {
+  font:600 24px/26.4px var(--lv-font-display);
+  letter-spacing:-0.6px;
+  margin:0;
+}
+
+.proofGrid p {
+  margin:12px 0 0;
+  font:400 15px/23.25px var(--lv-font-body);
+  opacity:0.62;
+}
+
+
+
+
+
+
+
+.partnersHeader .sectionKicker {
+  color:var(--lv-mint-deep);
+}
+
+.finalCta .sectionKicker {
+  color:var(--lv-mint-deep);
+}
+
+.finalCta>p:not(.sectionKicker) {
+  color:var(--lv-muted-light);
+  font:400 15px/1.55 var(--lv-font-body);
+  margin:22px 0 0;
+}
+
+@supports (animation-timeline:view()) {
+  .revealSection>* {
+  animation:linear both sectionReveal;
+  animation-timeline:view();
+  animation-range:entry 4% cover 28%;
+  }
+}
+
+
+@media (max-width:1100px) {
+  .terminalGrid {
+  grid-template-columns:minmax(0,1fr) 200px;
+  }
+  .ticketPanel {
+  display:none;
+  }
+}
+
+
+@media (max-width:760px) {
+  .heroGlow {
+  width:500px;
+  height:500px;
+  top:390px;
+  right:50%;
+  transform:translate(50%);
+  }
+  .heroChips {
+  flex-wrap:wrap;
+  margin-top:22px;
+  }
+  .terminalSection, .pathSection, .pricingSection, .rulesSection, .proofSection, .faqSection {
+  padding-left:20px;
+  padding-right:20px;
+  }
+  .terminalSection {
+  min-height:0;
+  padding-top:80px;
+  padding-bottom:84px;
+  }
+  .terminalIntro, .sectionHeaderRow, .pricingHeader, .proofHeader {
+  display:block;
+  }
+  .terminalIntro>p, .sectionAside, .proofHeader>p {
+  width:100%;
+  margin-top:25px;
+  }
+  .terminalFrame {
+  margin-top:45px;
+  overflow-x:auto;
+  }
+  .terminalTopbar {
+  min-width:660px;
+  }
+  .riskStrip {
+  grid-template-columns:repeat(4,165px);
+  min-width:660px;
+  }
+  .terminalGrid {
+  grid-template-columns:460px 200px;
+  min-width:660px;
+  }
+  .chartCanvas {
+  height:300px;
+  }
+  .terminalDisclosure {
+  text-align:left;
+  }
+  .proofSection {
+  min-height:0;
+  padding-top:82px;
+  padding-bottom:82px;
+  }
+  .proofGrid {
+  grid-template-columns:1fr;
+  margin-top:48px;
+  }
+  .proofGrid article {
+  border-bottom:1px solid #1012172e;
+  border-right:0;
+  min-height:205px;
+  }
+  .finalCta>p:not(.sectionKicker) {
+  font-size:13px;
+  }
+}
+
+
+@media (prefers-reduced-motion:reduce) {
+  .heroGlow, .eyebrow span, .betaNote span, .heroGraphic, .hero h1 span, .hero h1 strong, .heroCopy, .heroActions, .heroChips, .terminalStatus span, .chartLine, .chartPulse, .bookRows>div i, .flagCloth, .trailPath, .coinGroup, .faqRow[open] .faqAnswer {
+  animation:none;
+  }
+  .heroGraphic, .hero h1 span, .hero h1 strong, .heroCopy, .heroActions, .heroChips {
+  opacity:1;
+  transform:none;
+  }
+  .chartLine {
+  stroke-dashoffset:0;
+  }
+  .revealSection>* {
+  animation:none;
+  }
+  .terminalFrame, .pathGrid li, .pathIcon, .planCard, .partnerCard, .proofGrid article, .finalCtaGraphic {
+  transition:none;
+  }
+}
+
+
+
+/* 이식된 규칙이 참조하는 keyframes (배포본과 동일) */
+
+@keyframes bookDepth {
+  to {
+  scale:.72 1;
+  }
+}
+
+@keyframes chartPoint {
+  50% {
+  opacity:.45;
+  r:7px;
+  }
+}
+
+@keyframes drawChart {
+  to {
+  stroke-dashoffset:0;
+  }
+}
+
+@keyframes glowBreath {
+  50% {
+  opacity:.68;
+  scale:1.08;
+  }
+}
+
+@keyframes heroCopyIn {
+  0% {
+  opacity:0;
+  transform:translateY(14px);
+  }
+  to {
+  opacity:1;
+  transform:translateY(0);
+  }
+}
+
+@keyframes sectionReveal {
+  0% {
+  opacity:.45;
+  transform:translateY(52px);
+  }
+  to {
+  opacity:1;
+  transform:translateY(0);
+  }
+}
+
+@keyframes statusPulse {
+  50% {
+  opacity:.35;
+  scale:.72;
+  }
+}
+
+
+/* ------------------------------------------------------------
+   아래는 A 디자인 위에 얹은 B 신규 요소 — 카드 레이아웃은 A를 유지하므로
+   배포본 규칙 대신 이 스코프를 쓴다(섹션 헤드·칩·선택 요약바 등).
+   ------------------------------------------------------------ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.backersLede {
+  /* 실측 보정: flex 컬럼에서 21px은 36px로 보여 8px로 맞춘다(다른 섹션과 동일한 23px) */
+  margin: 8px 0 0;
+  color: rgb(16 18 23 / 0.62);
+  font: 400 15px/23.25px var(--lv-font-body);
+}
+
+
+
+.finalCtaLede {
+  position: absolute;
+  z-index: 1;
+  /* 실측 보정: 다른 섹션과 같은 23px 간격이 되는 위치 */
+  top: 246px;
+  left: 50%;
+  width: 460px;
+  margin: 0;
+  color: var(--lv-muted-light);
+  font: 400 15px/23.25px var(--lv-font-body);
+  transform: translateX(-50%);
+}
+
+
+
+@media (max-width: 760px) {
+
+  .finalCtaLede { top: 216px; width: calc(100% - 40px); font-size: 15px; line-height: 23.25px;
+  }
+}
+

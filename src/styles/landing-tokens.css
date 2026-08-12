@@ -56,9 +56,13 @@
 
   /* Motion: interaction feedback, never account state */
   --lv-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --lv-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --lv-motion-fast: 180ms;
+  --lv-motion-medium: 360ms;
+  --lv-motion-press: 110ms;
   --lv-motion-slow: 700ms;
   --lv-shadow-float: 0 28px 80px rgb(1 4 13 / 0.2);
+  --lv-shadow-action: 0 14px 34px rgb(0 237 213 / 0.2);
 }
 
 @media (max-width: 760px) {
@@ -72,6 +76,8 @@
 @media (prefers-reduced-motion: reduce) {
   .levli-landing {
     --lv-motion-fast: 0ms;
+    --lv-motion-medium: 0ms;
+    --lv-motion-press: 0ms;
     --lv-motion-slow: 0ms;
   }
 }

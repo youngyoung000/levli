@@ -228,7 +228,7 @@ export default function RulesPage(): React.JSX.Element {
               <table className={styles.table}>
                 <thead><tr><th>Not allowed</th><th>What it means</th><th>What happens</th></tr></thead>
                 <tbody>
-                  <tr><td><strong>News trading</strong></td><td>Opening or closing within ±2 minutes of published high-impact events.</td><td>Affected PnL is removed; repeated activity triggers review.</td></tr>
+                  <tr><td><strong>Price-feed abuse</strong></td><td>Exploiting stale quotes, obvious pricing errors, or simulation delays.</td><td>Affected results may be voided; repeated or intentional abuse can close the account.</td></tr>
                   <tr><td><strong>Bots / API</strong></td><td>Orders not placed manually through the official interface.</td><td>Account closed; pending rewards cancelled.</td></tr>
                   <tr><td><strong>Cross-account hedging</strong></td><td>Opposite coordinated positions across accounts.</td><td>Accounts closed; pending rewards cancelled.</td></tr>
                   <tr><td><strong>Copy trading</strong></td><td>Mirroring trades across your own or another trader&apos;s accounts.</td><td>Accounts closed; pending rewards cancelled.</td></tr>
@@ -284,7 +284,7 @@ export default function RulesPage(): React.JSX.Element {
               <li>All positions must be closed. Another payout request cannot already be pending.</li>
               <li>Requests are processed in a daily 09:00 UTC batch. Approved payouts are targeted within 24 hours.</li>
               <li>The evaluation fee is refunded with the first approved payout.</li>
-              <li>Identity, sanctions, and recipient-information checks may be required before payout approval.</li>
+              <li>Trial, Evaluation, and simulated Funded participation do not currently require KYC. Compliance checks may still apply where required by law.</li>
             </ul>
             <div className={styles.notice}>
               <span>Automatic checks</span>
@@ -311,7 +311,7 @@ export default function RulesPage(): React.JSX.Element {
               <span>Simulation limitation</span>
               Simulated results may differ materially from live trading because fills do not execute against real order-book liquidity, and funding payments are not currently applied.
             </div>
-            <p><Link href="/legal/risk-disclosure"><strong>Read the full Risk Disclosure</strong></Link></p>
+            <p><a href="https://levli-trading.vercel.app/legal/risk"><strong>Read the full Risk Disclosure</strong></a></p>
           </RuleSection>
 
           <RuleSection id="rule-priority" number="17" title="Rule Priority & Fine Print">
@@ -337,7 +337,7 @@ export default function RulesPage(): React.JSX.Element {
           <h2>Know the rules.<br />Then prove it.</h2>
           <p>Start with the free trial or choose an Evaluation when the rules fit how you trade.</p>
           <div className={styles.actions}>
-            <Link className={styles.primaryButton} href="/login">Get Started <ArrowUpRight /></Link>
+            <Link className={styles.primaryButton} href="/coming-soon">Get Started <ArrowUpRight /></Link>
             <Link className={styles.secondaryButton} href="/faq">View FAQ <ArrowUpRight /></Link>
           </div>
         </div>

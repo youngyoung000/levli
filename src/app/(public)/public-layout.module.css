@@ -1,333 +1,677 @@
+/* ============================================================
+   public-layout 모듈 — 개발 버전(levli-landing-two) 배포본 CSS를 그대로 이식.
+   클래스 프리픽스만 제거했고 선언은 실제 배포본과 동일하다.
+   ============================================================ */
+
 .shell {
-  min-height: 100vh;
-  color: var(--lv-text-on-dark);
-  background: var(--lv-night);
-  font-family: var(--lv-font-body);
+  min-height:100vh;
+  color:var(--lv-text-on-dark);
+  background:var(--lv-night);
+  font-family:var(--lv-font-body);
 }
 
 .skipLink {
-  position: fixed;
-  z-index: 100;
-  top: 10px;
-  left: 10px;
-  padding: 10px 12px;
-  border-radius: 999px;
-  color: var(--color-primary-foreground);
-  background: var(--color-primary);
-  font-size: 12px;
-  font-weight: 650;
-  transform: translateY(-160%);
+  z-index:100;
+  color:var(--color-primary-foreground);
+  background:var(--color-primary);
+  transition:transform var(--lv-motion-fast) var(--lv-ease-out);
+  border-radius:999px;
+  padding:10px 12px;
+  font-size:12px;
+  font-weight:650;
+  position:fixed;
+  top:10px;
+  left:10px;
+  transform:translateY(-160%);
 }
 
 .skipLink:focus {
-  transform: translateY(0);
+  transform:translateY(0);
 }
 
 .header {
-  position: fixed;
-  z-index: 50;
-  top: 0;
-  right: 0;
-  left: 0;
-  border-bottom: 1px solid var(--lv-line-dark);
-  background: rgb(11 13 18 / 0.8);
-  backdrop-filter: blur(18px) saturate(140%);
+  z-index:50;
+  border-bottom:1px solid var(--lv-line-dark);
+  -webkit-backdrop-filter:blur(18px)saturate(140%);
+  backdrop-filter:blur(18px)saturate(140%);
+  transition:background-color var(--lv-motion-medium) var(--lv-ease-out), border-color var(--lv-motion-medium) var(--lv-ease-out);
+  background:#0b0d12cc;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
 }
 
 .headerInner {
-  position: relative;
-  width: min(1440px, 100%);
-  height: 74px;
-  margin: 0 auto;
+  width:min(1440px,100%);
+  height:74px;
+  margin:0 auto;
+  position:relative;
 }
 
 .logoLink {
-  position: absolute;
-  top: 20px;
-  left: 28px;
-  width: 138px;
-  height: 33px;
-  color: var(--lv-white);
+  width:138px;
+  height:33px;
+  color:var(--lv-white);
+  transition:color var(--lv-motion-fast) var(--lv-ease-out), scale var(--lv-motion-fast) var(--lv-ease-spring);
+  position:absolute;
+  top:20px;
+  left:28px;
+}
+
+.logoLink:hover {
+  color:var(--lv-mint);
+  scale:1.025;
+}
+
+.logoLink:active {
+  scale:.97;
 }
 
 .logoLink svg,
 .footerBrand svg {
-  display: block;
-  width: 100%;
-  height: auto;
+  width:100%;
+  height:auto;
+  display:block;
 }
 
 .desktopNav {
-  position: absolute;
-  top: 28px;
-  left: 50%;
-  display: flex;
-  align-items: center;
-  gap: 34px;
-  color: var(--lv-muted-dark);
-  font: 500 14px/18px var(--lv-font-meta);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transform: translateX(-50%);
+  color:var(--lv-muted-dark);
+  font:500 14px/18px var(--lv-font-meta);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  align-items:center;
+  gap:28px;
+  display:flex;
+  position:absolute;
+  top:28px;
+  left:50%;
+  transform:translate(-50%);
 }
 
 .desktopNav a,
 .loginLink,
 .linkGroup a {
-  transition: color 150ms ease-out;
+  transition:color var(--lv-motion-fast) var(--lv-ease-out), translate var(--lv-motion-fast) var(--lv-ease-out);
+  position:relative;
+}
+
+.desktopNav a:after,
+.loginLink:after {
+  content:"";
+  background:var(--lv-mint);
+  transform-origin:100%;
+  height:1px;
+  transition:scale var(--lv-motion-medium) var(--lv-ease-out);
+  position:absolute;
+  bottom:-8px;
+  left:0;
+  right:0;
+  scale:0 1;
 }
 
 .desktopNav a:hover,
 .loginLink:hover,
 .linkGroup a:hover {
-  color: var(--lv-white);
+  color:var(--lv-white);
+}
+
+.desktopNav a:hover:after,
+.loginLink:hover:after {
+  transform-origin:0;
+  scale:1;
+}
+
+.desktopNav a:active,
+.loginLink:active,
+.linkGroup a:active {
+  translate:0 1px;
+}
+
+.linkGroup a:hover {
+  translate:4px;
 }
 
 .headerActions {
-  position: absolute;
-  top: 18px;
-  right: 28px;
-  display: flex;
-  align-items: center;
-  gap: 50px;
-  font: 600 14px/18px var(--lv-font-body);
+  font:600 14px/18px var(--lv-font-body);
+  align-items:center;
+  /* 지갑 칩을 Get Started 쪽으로 붙인다(개발 버전 50px → 12px) */
+  gap:12px;
+  display:flex;
+  position:absolute;
+  top:18px;
+  right:28px;
 }
 
 .loginLink {
-  min-width: 42px;
-  min-height: 24px;
-  padding: 0;
-  border: 0;
-  color: var(--lv-muted-dark);
-  background: transparent;
-  font: inherit;
+  min-width:42px;
+  min-height:24px;
+  color:var(--lv-muted-dark);
+  cursor:pointer;
+  font:inherit;
+  white-space:nowrap;
+  background:0 0;
+  border:0;
+  padding:0;
+}
+
+.loginLink:disabled {
+  cursor:wait;
+  opacity:.7;
+}
+
+.walletLoginAction,
+.walletMenu {
+  position:relative;
+}
+
+.walletMenuSummary {
+  min-height:38px;
+  color:var(--lv-white);
+  cursor:pointer;
+  font:600 12px/16px var(--lv-font-meta);
+  transition:border-color var(--lv-motion-fast) var(--lv-ease-out), background-color var(--lv-motion-fast) var(--lv-ease-out), translate var(--lv-motion-fast) var(--lv-ease-out);
+  background:#00edd50e;
+  border:1px solid #00edd547;
+  border-radius:999px;
+  align-items:center;
+  gap:9px;
+  padding:0 12px;
+  list-style:none;
+  display:inline-flex;
+}
+
+.walletMenuSummary::-webkit-details-marker {
+  display:none;
+}
+
+.walletMenuSummary:hover {
+  border-color:var(--lv-mint);
+  background:#00edd51a;
+  translate:0 -1px;
+}
+
+.walletMenu[open] .walletMenuSummary {
+  border-color:var(--lv-mint);
+  background:#00edd51c;
+}
+
+.walletMenuSummary>svg {
+  width:10px;
+  height:7px;
+  color:var(--lv-steel);
+  transition:rotate var(--lv-motion-fast) var(--lv-ease-out);
+}
+
+.walletMenu[open] .walletMenuSummary>svg {
+  rotate:180deg;
+}
+
+.walletStatusDot {
+  background:var(--lv-mint);
+  border-radius:50%;
+  flex:0 0 6px;
+  width:6px;
+  height:6px;
+  box-shadow:0 0 12px #00edd5cc;
+}
+
+.walletAddress {
+  white-space:nowrap;
+}
+
+.walletPopover {
+  z-index:4;
+  width:278px;
+  color:var(--lv-white);
+  animation:menuReveal var(--lv-motion-medium) var(--lv-ease-out) both;
+  background:#0f1219fa;
+  border:1px solid #ffffff29;
+  position:absolute;
+  top:calc(100% + 12px);
+  right:0;
+  overflow:hidden;
+  box-shadow:0 24px 70px #0000006b;
+}
+
+.walletPopoverHeader {
+  border-bottom:1px solid var(--lv-line-dark);
+  min-height:44px;
+  font:600 9px/12px var(--lv-font-meta);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 14px;
+  display:flex;
+}
+
+.walletPopoverHeader span {
+  color:var(--lv-mint);
+  align-items:center;
+  gap:7px;
+  display:inline-flex;
+}
+
+.walletPopoverHeader i {
+  background:currentColor;
+  border-radius:50%;
+  width:5px;
+  height:5px;
+  box-shadow:0 0 10px;
+}
+
+.walletPopoverHeader small {
+  color:var(--lv-steel);
+  font:inherit;
+  letter-spacing:0;
+  text-transform:none;
+}
+
+.walletIdentity {
+  border-bottom:1px solid var(--lv-line-dark);
+  grid-template-columns:1fr auto;
+  gap:5px 12px;
+  padding:16px 14px;
+  display:grid;
+}
+
+.walletIdentity>span {
+  color:var(--lv-steel);
+  font:600 9px/12px var(--lv-font-meta);
+  letter-spacing:.09em;
+  text-transform:uppercase;
+}
+
+.walletIdentity strong {
+  color:var(--lv-white);
+  font:600 16px/20px var(--lv-font-value);
+  grid-row:2;
+}
+
+.walletIdentity small {
+  color:var(--lv-steel);
+  font:500 10px/13px var(--lv-font-body);
+  grid-area:2/2;
+  align-self:center;
+}
+
+.walletMenuActions {
+  grid-template-columns:1fr 1fr;
+  display:grid;
+}
+
+.walletMenuActions button {
+  min-height:44px;
+  color:var(--lv-muted-dark);
+  cursor:pointer;
+  font:600 11px/14px var(--lv-font-body);
+  transition:color var(--lv-motion-fast) var(--lv-ease-out), background-color var(--lv-motion-fast) var(--lv-ease-out);
+  background:0 0;
+  border:0;
+}
+
+.walletMenuActions button+button {
+  border-left:1px solid var(--lv-line-dark);
+}
+
+.walletMenuActions button:hover {
+  color:var(--lv-white);
+  background:#ffffff0e;
+}
+
+.walletMenuActions button:last-child:hover {
+  color:#ff8e9a;
+}
+
+.headerWalletError {
+  width:260px;
+  color:var(--lv-white);
+  background:var(--lv-night-soft);
+  box-shadow:var(--lv-shadow-float);
+  font:500 11px/16px var(--lv-font-body);
+  border:1px solid #ffffff29;
+  padding:10px 12px;
+  position:absolute;
+  top:34px;
+  right:0;
 }
 
 .startLink {
-  width: 142px;
-  min-height: 38px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 0 18px;
-  border: 1px solid var(--lv-mint);
-  border-radius: 999px;
-  color: var(--lv-action-ink);
-  background: var(--lv-mint);
-  cursor: pointer;
-  font: inherit;
-  font-weight: 650;
-  white-space: nowrap;
-  transition: transform 150ms ease-out, background-color 150ms ease-out;
+  border:1px solid var(--lv-mint);
+  width:142px;
+  min-height:38px;
+  color:var(--lv-action-ink);
+  background:var(--lv-mint);
+  cursor:pointer;
+  font:inherit;
+  white-space:nowrap;
+  transition:translate var(--lv-motion-fast) var(--lv-ease-out), scale var(--lv-motion-press) var(--lv-ease-out), background-color var(--lv-motion-fast) var(--lv-ease-out), border-color var(--lv-motion-fast) var(--lv-ease-out), box-shadow var(--lv-motion-medium) var(--lv-ease-out);
+  border-radius:999px;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  padding:0 18px;
+  font-weight:650;
+  display:inline-flex;
+  box-shadow:0 0 #00edd500;
 }
 
+/* 호버는 A 원안과 동일 — 색만 바뀐다(부양·글로우 없음) */
 .startLink:hover {
-  background: var(--lv-mint-deep);
-  border-color: var(--lv-mint-deep);
+  background:var(--lv-mint-deep);
+  border-color:var(--lv-mint-deep);
 }
+
+
 
 .startLink svg {
-  width: 14px;
-  height: 14px;
-  flex: 0 0 14px;
+  width:14px;
+  height:14px;
+  flex:0 0 14px;
 }
+
+
 
 .logoLink:focus-visible,
 .desktopNav a:focus-visible,
 .headerActions a:focus-visible,
+.headerActions button:focus-visible,
 .mobileMenu a:focus-visible,
+.mobileMenu button:focus-visible,
 .linkGroup a:focus-visible,
 .mobileMenu summary:focus-visible {
-  outline: 2px solid var(--lv-mint);
-  outline-offset: 4px;
+  outline:2px solid var(--lv-mint);
+  outline-offset:4px;
 }
 
 .mobileMenu {
-  display: none;
+  display:none;
 }
 
 .footer {
-  position: relative;
-  width: min(1440px, 100%);
-  height: 260px;
-  margin: 0 auto;
-  padding: 0;
-  border-top: 1px solid var(--lv-line-dark);
-  color: var(--lv-text-on-dark);
-  background: var(--lv-night);
+  border-top:1px solid var(--lv-line-dark);
+  width:min(1440px,100%);
+  height:260px;
+  color:var(--lv-text-on-dark);
+  background:var(--lv-night);
+  margin:0 auto;
+  padding:0;
+  position:relative;
 }
 
 .footerTop {
-  position: relative;
-  height: 200px;
+  height:200px;
+  position:relative;
 }
 
 .footerBrand {
-  position: absolute;
-  top: 50px;
-  left: 28px;
-  width: 140px;
-  height: 34px;
+  width:140px;
+  height:34px;
+  position:absolute;
+  top:50px;
+  left:28px;
 }
 
 .footerBrand p {
-  max-width: 300px;
-  margin: 20px 0 0;
-  color: var(--color-muted-foreground);
-  font-size: 13px;
-  line-height: 1.6;
+  max-width:300px;
+  color:var(--color-muted-foreground);
+  margin:20px 0 0;
+  font-size:13px;
+  line-height:1.6;
 }
 
 .linkGroup {
-  position: absolute;
-  top: 52px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  color: var(--lv-muted-dark);
-  font: 500 10px/12px var(--lv-font-meta);
-  letter-spacing: 0.2px;
+  color:var(--lv-muted-dark);
+  font:500 10px/12px var(--lv-font-meta);
+  letter-spacing:.2px;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:12px;
+  display:flex;
+  position:absolute;
+  top:52px;
 }
 
-.linkGroup:nth-child(2) { left: 650px; }
-.linkGroup:nth-child(3) { left: 920px; }
-.linkGroup:nth-child(4) { left: 1180px; }
+.linkGroup:nth-child(2) {
+  left:650px;
+}
 
-.linkGroup > span {
-  margin-bottom: 4px;
-  color: var(--lv-white);
-  font: 600 10px/1 var(--font-mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.linkGroup:nth-child(3) {
+  left:900px;
+}
+
+.linkGroup:nth-child(4) {
+  left:1180px;
+}
+
+.linkGroup>span {
+  color:var(--lv-white);
+  font:600 10px/1 var(--font-mono);
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  margin-bottom:4px;
 }
 
 .disclosure {
-  position: absolute;
-  top: 218px;
-  left: 28px;
-  color: var(--lv-steel);
-  font: 500 10px/12px var(--lv-font-meta);
-  letter-spacing: 0.2px;
+  color:var(--lv-steel);
+  font:500 10px/12px var(--lv-font-meta);
+  letter-spacing:.2px;
+  position:absolute;
+  top:218px;
+  left:28px;
 }
 
 .disclosure p {
-  max-width: 800px;
-  margin: 0;
+  max-width:800px;
+  margin:0;
 }
 
-@media (max-width: 720px) {
+@media (max-width:720px) {
   .headerInner {
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 18px;
+  justify-content:space-between;
+  align-items:center;
+  height:64px;
+  padding:0 18px;
+  display:flex;
   }
-
-  .logoLink { position: static; width: 104px; height: 25px; }
-
+  .logoLink {
+  width:104px;
+  height:25px;
+  position:static;
+  }
   .desktopNav,
-  .headerActions {
-    display: none;
+.headerActions {
+  display:none;
   }
-
   .mobileMenu {
-    position: relative;
-    display: block;
+  display:block;
+  position:relative;
   }
-
-  .mobileMenu summary {
-    width: 44px;
-    height: 44px;
-    display: grid;
-    place-content: center;
-    gap: 6px;
-    border: 1px solid var(--lv-line-dark);
-    border-radius: 50%;
-    cursor: pointer;
-    list-style: none;
+  .mobileMenu>summary {
+  border:1px solid var(--lv-line-dark);
+  cursor:pointer;
+  width:44px;
+  height:44px;
+  transition:background-color var(--lv-motion-fast) var(--lv-ease-out), border-color var(--lv-motion-fast) var(--lv-ease-out), scale var(--lv-motion-press) var(--lv-ease-out);
+  border-radius:50%;
+  place-content:center;
+  gap:6px;
+  list-style:none;
+  display:grid;
   }
-
-  .mobileMenu summary::-webkit-details-marker {
-    display: none;
+  .mobileMenu>summary:hover {
+  border-color:var(--lv-mint);
+  background:#00edd514;
   }
-
-  .mobileMenu summary span {
-    width: 16px;
-    height: 1px;
-    background: var(--lv-white);
+  .mobileMenu>summary:active {
+  scale:.94;
   }
-
+  .mobileMenu>summary::-webkit-details-marker {
+  display:none;
+  }
+  .mobileMenu>summary span {
+  background:var(--lv-white);
+  width:16px;
+  height:1px;
+  transition:rotate var(--lv-motion-medium) var(--lv-ease-spring), translate var(--lv-motion-medium) var(--lv-ease-out), background-color var(--lv-motion-fast) var(--lv-ease-out);
+  }
+  .mobileMenu[open]>summary span {
+  background:var(--lv-mint);
+  }
+  .mobileMenu[open]>summary span:first-child {
+  translate:0 3.5px;
+  rotate:45deg;
+  }
+  .mobileMenu[open]>summary span:last-child {
+  translate:0 -3.5px;
+  rotate:-45deg;
+  }
   .mobileMenu nav {
-    position: absolute;
-    top: 48px;
-    right: 0;
-    width: min(280px, calc(100vw - 36px));
-    display: flex;
-    flex-direction: column;
-    padding: 12px;
-    border: 1px solid var(--lv-line-dark);
-    border-radius: 0;
-    background: var(--lv-night-soft);
-    box-shadow: var(--lv-shadow-float);
+  border:1px solid var(--lv-line-dark);
+  background:var(--lv-night-soft);
+  width:min(280px,100vw - 36px);
+  box-shadow:var(--lv-shadow-float);
+  transform-origin:100% 0;
+  animation:menuReveal var(--lv-motion-medium) var(--lv-ease-out) both;
+  border-radius:0;
+  flex-direction:column;
+  padding:12px;
+  display:flex;
+  position:absolute;
+  top:48px;
+  right:0;
   }
-
   .mobileMenu nav a {
-    padding: 12px;
-    border-radius: 0;
-    color: var(--lv-muted-dark);
-    font-size: 13px;
+  color:var(--lv-muted-dark);
+  transition:color var(--lv-motion-fast) var(--lv-ease-out), background-color var(--lv-motion-fast) var(--lv-ease-out), translate var(--lv-motion-fast) var(--lv-ease-out);
+  border-radius:0;
+  padding:12px;
+  font-size:13px;
   }
-
   .mobileMenu nav a:hover {
-    color: var(--lv-white);
-    background: rgb(255 255 255 / 0.06);
+  color:var(--lv-white);
+  background:#ffffff0f;
+  translate:5px;
   }
-
+  .mobileMenu nav a:active {
+  translate:2px;
+  }
+  .mobileWalletAction {
+  position:relative;
+  }
+  .mobileWalletLogin {
+  width:100%;
+  min-height:0;
+  color:var(--lv-muted-dark);
+  text-align:left;
+  padding:12px;
+  font-size:13px;
+  }
+  .mobileWalletLogin:hover {
+  color:var(--lv-white);
+  background:#ffffff0f;
+  }
+  .mobileWalletAction .walletMenu {
+  width:100%;
+  }
+  .mobileWalletSummary {
+  background:0 0;
+  border-color:#0000;
+  border-radius:0;
+  justify-content:flex-start;
+  width:100%;
+  min-height:42px;
+  padding:0 12px;
+  }
+  .mobileWalletSummary>svg {
+  margin-left:auto;
+  }
+  .mobileWalletAction .walletPopover {
+  width:100%;
+  box-shadow:none;
+  margin-top:4px;
+  position:static;
+  }
+  .mobileWalletAction .headerWalletError {
+  width:auto;
+  box-shadow:none;
+  margin:0 12px 8px;
+  padding:8px 10px;
+  display:block;
+  position:static;
+  }
   .footer {
-    height: auto;
-    min-height: 420px;
-    padding: 54px 20px 28px;
+  height:auto;
+  min-height:420px;
+  padding:54px 20px 28px;
   }
-
   .footerTop {
-    height: auto;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 42px 24px;
+  grid-template-columns:repeat(2,1fr);
+  gap:42px 24px;
+  height:auto;
+  display:grid;
   }
-
   .footerBrand {
-    position: static;
-    grid-column: 1 / -1;
-    width: 124px;
-    height: auto;
+  grid-column:1/-1;
+  width:124px;
+  height:auto;
+  position:static;
   }
-
   .linkGroup,
-  .linkGroup:nth-child(2),
-  .linkGroup:nth-child(3),
-  .linkGroup:nth-child(4) { position: static; }
-
+.linkGroup:nth-child(2),
+.linkGroup:nth-child(3),
+.linkGroup:nth-child(4) {
+  position:static;
+  }
   .disclosure {
-    position: static;
-    margin-top: 54px;
-    padding-top: 20px;
-    border-top: 1px solid var(--lv-line-dark);
+  border-top:1px solid var(--lv-line-dark);
+  margin-top:54px;
+  padding-top:20px;
+  position:static;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .desktopNav a,
-  .loginLink,
-  .linkGroup a,
-  .startLink {
-    transition: none;
+@keyframes menuReveal {
+  0% {
+  opacity:0;
+  translate:0 -8px;
+  scale:.96;
   }
+  to {
+  opacity:1;
+  translate:0;
+  scale:1;
+  }
+}
 
-  .startLink:hover {
-    transform: none;
+@media (prefers-reduced-motion:reduce) {
+  .desktopNav a,
+.loginLink,
+.linkGroup a,
+.logoLink,
+.startLink,
+.mobileMenu summary,
+.mobileMenu summary span,
+.mobileMenu nav a {
+  transition:none;
+  }
+  .mobileMenu nav {
+  animation:none;
+  }
+  .logoLink:hover,
+.logoLink:active,
+.startLink:active,
+.mobileMenu summary:active {
+  scale:1;
+  }
+  .startLink:hover,
+.desktopNav a:active,
+.loginLink:active,
+.linkGroup a:hover,
+.linkGroup a:active,
+.mobileMenu nav a:hover,
+.mobileMenu nav a:active {
+  translate:0;
   }
 }

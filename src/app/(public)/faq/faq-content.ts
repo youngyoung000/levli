@@ -43,7 +43,7 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
     id: "kyc",
     category: "Getting Started",
     question: "Do I need to complete KYC?",
-    answer: "Identity verification is not part of the initial simulated-trading setup, but it may be required before a payout and whenever applicable sanctions, identity, or recipient-information checks require it. The exact requirement is shown before you submit.",
+    answer: "Levli does not currently require KYC for Trial, Evaluation, or simulated Funded participation. Eligibility, sanctions, and recipient-information checks may still apply where required by law, and any required step is shown before submission.",
     rulesId: "payouts",
   },
   {
