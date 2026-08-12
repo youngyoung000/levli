@@ -135,11 +135,8 @@
    (`AGENTS.md` §3에 파일·상수 단위 목록)
 2. **리더보드 실데이터** — 목데이터 → API, 페이지네이션은 서버 페이징으로 전환하거나 제거
 3. **YOU 실순위** — 데모용 6위 고정을 실제 순위로
-4. **Recent Payouts** — 삭제 확정(Proof 섹션이 그 자리). 실측 payout이 쌓이면 재검토
-5. **용어 `payout` → `reward`** — 컴플라이언스 검토 결과인지 확인 필요. 맞다면 Rules 본문·ToS까지 통일
-6. **KYC 문구 완화** — "현재 Trial/Evaluation/Funded에 KYC를 요구하지 않는다"는 법무 검토 대상
-7. **법무 문서 링크** — 현재 외부 도메인(`levli-trading.vercel.app`). 최종 도메인 확정 시 교체
-8. **헤더 Get Started** → `/coming-soon`. 포털 오픈 시 실제 진입점으로 교체
+4. **법무 문서 링크** — 현재 외부 도메인(`levli-trading.vercel.app`). 최종 도메인 확정 시 교체
+5. **헤더 Get Started** → `/coming-soon`. 포털 오픈 시 실제 진입점으로 교체
 
 ## 6. 품질 체크 상태
 
